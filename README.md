@@ -1,1 +1,3 @@
-"# AndroidPrograming01" 
+# ±Í«„∫Í ¡÷º“
+# https://github.com/JinYongHwa/AndroidPrograming01
+
