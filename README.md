@@ -1,3 +1,2 @@
-# ±êÇãºê ÁÖ¼Ò
+# GIT Hub ì£¼ì†Œ111
 # https://github.com/JinYongHwa/AndroidPrograming01
-
