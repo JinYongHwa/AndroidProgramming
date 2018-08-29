@@ -1,2 +1,2 @@
-# GIT Hub 주소111
+# GIT Hub 주소
 # https://github.com/JinYongHwa/AndroidPrograming01
