@@ -10,7 +10,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_frame);
+        setContentView(R.layout.activity_login);
 //        LinearLayout mainLayout = new LinearLayout(this);
 //        mainLayout.setOrientation(LinearLayout.VERTICAL);
 //
