@@ -1,4 +1,4 @@
-`
+```
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -42,4 +42,4 @@ public class SecondActivity extends Activity {
         Log.d("SecondActivity","onDestroy");
     }
 }
-`
+```
