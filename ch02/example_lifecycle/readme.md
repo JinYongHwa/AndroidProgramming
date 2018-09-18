@@ -93,7 +93,7 @@ public class SecondActivity extends Activity {
 
 ```
 
-AndroidManifest.xml
+## AndroidManifest.xml
 ```
 <activity android:name=".SecondActivity"></activity>
 ```
