@@ -81,6 +81,7 @@ public class CountService extends Service implements Runnable{
                     @Override
                     public void run() {
                         Intent intent=new Intent(CountService.this,MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
                 });
