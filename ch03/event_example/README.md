@@ -1,7 +1,7 @@
 # Android Event 예제
 
 ## activity_event_example.xml
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
