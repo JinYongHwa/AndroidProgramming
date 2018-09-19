@@ -27,7 +27,7 @@
 ```
 
 ## MainActivity.java
-```
+```java
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -130,7 +130,7 @@ public class MainActivity extends Activity{
 
 
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kr.ac.mjc.jyh.event_example">
