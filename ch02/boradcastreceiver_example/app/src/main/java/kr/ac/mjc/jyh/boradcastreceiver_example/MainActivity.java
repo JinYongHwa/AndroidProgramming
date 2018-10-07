@@ -14,7 +14,10 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.RECEIVE_SMS},1);
+            int permission=checkSelfPermission(Manifest.permission.RECEIVE_SMS);
+            if(permission!=PackageManager.PERMISSION_GRANTED){
+                requestPermissions(new String[]{Manifest.permission.RECEIVE_SMS},1);
+            }
         }
     }
 
