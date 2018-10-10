@@ -84,6 +84,7 @@ public class BootCompleteReceiver extends BroadcastReceiver {
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="패키지명">
     <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
