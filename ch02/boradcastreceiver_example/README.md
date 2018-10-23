@@ -68,7 +68,7 @@ import android.util.Log;
 public class BootCompleteReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("jyh","bootcomplete");
+ 
         if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)){
             Intent i=new Intent(context,MainActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -80,15 +80,37 @@ public class BootCompleteReceiver extends BroadcastReceiver {
 
 ## AndroidManifest.xml
 ``` xml
-<receiver android:name=".SMSBroadcastReceiver">
-    <intent-filter>
-        <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
-    </intent-filter>
-</receiver>
-<receiver android:name=".BootCompleteReceiver">
-    <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED"></action>
-    </intent-filter>
-</receiver>
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="패키지명">
+    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <receiver android:name=".SMSReceiver">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"></action>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".BootCompleteReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
 ```
 ```
