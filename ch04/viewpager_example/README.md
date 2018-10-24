@@ -1,4 +1,4 @@
-## gradle
+## build.gradle
 ``` gradle
 dependencies {
     //추가
