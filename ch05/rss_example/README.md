@@ -1,3 +1,13 @@
+# RSS 예제
+- [gson-xml](https://github.com/stanfy/gson-xml)
+- [SBS RSS](http://news.sbs.co.kr/news/rss.do)
+
+## app/build.gradle
+```
+implementation 'com.stanfy:gson-xml-java:0.1.+'
+implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+```
+
 ## AndroidManifest.xml
 ``` xml
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
