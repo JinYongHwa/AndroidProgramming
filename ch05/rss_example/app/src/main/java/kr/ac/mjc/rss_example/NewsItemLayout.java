@@ -25,7 +25,7 @@ public class NewsItemLayout extends LinearLayout{
 
 
     public void setItem(Item item){
-        titleTv.setText(item.title);
-        descriptionTv.setText(item.description);
+        titleTv.setText(item.getTitle());
+        descriptionTv.setText(item.getDescription());
     }
 }
