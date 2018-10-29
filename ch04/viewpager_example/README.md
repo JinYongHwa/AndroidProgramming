@@ -1,3 +1,10 @@
+## build.gradle
+``` gradle
+dependencies {
+    //추가
+    implementation 'com.android.support:support-v4:28.0.0'
+}
+```
 
 ## pager_item.xml
 ``` xml
