@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,11 +16,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements Callback{
     OkHttpClient client = new OkHttpClient();
     TextView outputTv;
     Handler handler=new Handler();
@@ -35,47 +38,32 @@ public class MainActivity extends Activity {
         requestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String output= null;
-                ConnectThread connectThread=new ConnectThread(urlEt.getText().toString());
-                connectThread.start();
+
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder()
+                        .url(urlEt.getText().toString())
+                        .build();
+                client.newCall(request).enqueue(MainActivity.this);
+
             }
         });
     }
 
+    @Override
+    public void onFailure(Call call, IOException e) {
 
+    }
 
-    class ConnectThread extends Thread {
-        OkHttpClient client = new OkHttpClient();
-        private String mUrl;
-
-        public ConnectThread(String url) {
-            this.mUrl = url;
-        }
-
-        @Override
-        public void run() {
-            super.run();
-
-            try {
-                final String output = request(mUrl);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        outputTv.setText(output);
-                    }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public String request(String urlStr) throws IOException {
-            Request request = new Request.Builder()
-                    .url(urlStr)
-                    .build();
-
-            Response response = client.newCall(request).execute();
-            return response.body().string();
+    @Override
+    public void onResponse(Call call, Response response) throws IOException {
+        if(response.code()==200){
+            final String output=response.body().string();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    outputTv.setText(output);
+                }
+            });
         }
     }
 }
