@@ -45,15 +45,15 @@ dependencies {
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
-
-    </ScrollView>
-
-    <TextView
+<TextView
         android:id="@+id/output_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
         />
+    </ScrollView>
+
+    
 
 </LinearLayout>
 ```
