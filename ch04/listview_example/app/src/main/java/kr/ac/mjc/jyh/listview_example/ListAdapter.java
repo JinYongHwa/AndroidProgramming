@@ -1,6 +1,7 @@
 package kr.ac.mjc.jyh.listview_example;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -35,6 +36,7 @@ public class ListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.d("ListAdapter",String.format("getView[%d]",position));
         ListItemView itemView;
         if(convertView==null){
             itemView=new ListItemView(mContext);

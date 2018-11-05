@@ -58,9 +58,10 @@ public class DownloadService extends Service implements Runnable{
 
     @Override
     public void run() {
+
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/test.txt");
-        Request request = new Request.Builder().url("https://github.com/JinYongHwa/AndroidPrograming/raw/master/ch05/test.txt").build();
+        Request request = new Request.Builder().url("https://github.com/JinYongHwa/AndroidPrograming/raw/master/ch05/test2.txt").build();
         OkHttpClient client=new OkHttpClient();
         int lastPercent=0;
         try {
