@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="새 메시지 알림">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="message_alarm"
+            android:title="메시지 알림" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="alarm"
+            android:title="소리" />
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/array_voice"
+            android:entryValues="@array/array_voice"
+            android:key="alarm_sound"
+            android:title="알림음" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="vibrate"
+            android:title="진동" />
+    </PreferenceCategory>
+</PreferenceScreen>
