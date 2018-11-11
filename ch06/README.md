@@ -1,5 +1,6 @@
 ![resource](https://user-images.githubusercontent.com/21700482/48313344-5c6e8180-e5fe-11e8-9168-61dcb640e569.jpg)
 
+## Android Resource
 1. anim : 안드로이드의 애니메이션을 저장해두는 폴더
 2. drawable : png, jpg, gif 등 각종 이미지 파일, 도형을 정의한 XML 파일등이 저장된 폴더 
 3. layout : 안드로이드의 화면을 구성하는 레이아웃을 모아놓은 폴더. 
@@ -13,3 +14,7 @@
  - srings : 각종 문자열을 저장
  - styles : 프로젝트의 스타일을 저장
 8. xml : 개발자가 정의한 xml 을 모아두는 폴더
+
+
+## 안드로이드 런처아이콘 만들기
+(AndroidAssetStudio)[https://romannurik.github.io/AndroidAssetStudio/index.html]
