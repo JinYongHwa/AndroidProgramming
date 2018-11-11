@@ -1,0 +1,22 @@
+![resource](https://user-images.githubusercontent.com/21700482/48313344-5c6e8180-e5fe-11e8-9168-61dcb640e569.jpg)
+
+1. anim : 안드로이드의 애니메이션을 저장해두는 폴더
+
+2. drawable : png, jpg, gif 등 각종 이미지 파일, 도형을 정의한 XML 파일등이 저장된 폴더 
+
+3. layout : 안드로이드의 화면을 구성하는 레이아웃을 모아놓은 폴더. 
+
+4. menu : 화면 ActionBar 의 각종 메뉴 아이콘 정의한 폴더
+
+5. mipmap : 현재프로젝트의 아이콘을 저장하는 폴더
+
+6. raw : mp3, mpg, txt, exe 등 각종 원본 파일을 모아두는 폴더
+
+7. : value : 각종 값을 미리 정의 해둔 폴더
+ - arrays : 배열들을 저장
+ - color : 색상값을 저장
+ - dimens : 각종 사이즈값을 저장
+ - srings : 각종 문자열을 저장
+ - styles : 프로젝트의 스타일을 저장
+
+8. xml : 개발자가 정의한 xml 을 모아두는 폴더
