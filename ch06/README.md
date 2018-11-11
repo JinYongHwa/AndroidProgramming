@@ -17,4 +17,4 @@
 
 
 ## 안드로이드 런처아이콘 만들기
-(AndroidAssetStudio)[https://romannurik.github.io/AndroidAssetStudio/index.html]
+(https://romannurik.github.io/AndroidAssetStudio/index.html)[AndroidAssetStudio]
