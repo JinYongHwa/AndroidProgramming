@@ -6,7 +6,7 @@
 4. menu : 화면 ActionBar 의 각종 메뉴 아이콘 정의한 폴더
 5. mipmap : 현재프로젝트의 아이콘을 저장하는 폴더
 6. raw : mp3, mpg, txt, exe 등 각종 원본 파일을 모아두는 폴더
-7. : value : 각종 값을 미리 정의 해둔 폴더
+7. value : 각종 값을 미리 정의 해둔 폴더
  - arrays : 배열들을 저장
  - color : 색상값을 저장
  - dimens : 각종 사이즈값을 저장
