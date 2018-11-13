@@ -183,6 +183,32 @@ public class SettingActivity extends Activity {
 </menu>
 ```
 
+## activity_main.xml
+```java
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/alarm_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="알람"
+        android:textSize="@dimen/text_size" />
+
+    <Button
+        android:id="@+id/config_clear_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="설정초기화" />
+</LinearLayout>
+```
+
 ## MainActivity.java
 ``` java
 import android.content.Intent;
