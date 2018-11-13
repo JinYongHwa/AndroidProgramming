@@ -240,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setTitle(R.string.main_title);
 
         Button alarmBtn=findViewById(R.id.alarm_btn);
+        Button configClearBtn=findViewById(R.id.config_clear_btn);
         alarmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -267,6 +268,15 @@ public class MainActivity extends AppCompatActivity {
                     mp.start();
                     Toast.makeText(MainActivity.this,alarmSound,Toast.LENGTH_SHORT).show();
                 }
+
+            }
+        });
+        configClearBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                SharedPreferences.Editor editor=pref.edit();
+                editor.clear().commit();
 
             }
         });
