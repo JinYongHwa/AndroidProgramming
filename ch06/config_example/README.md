@@ -151,3 +151,139 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
     }
 }
 ```
+
+## SettingActivity.java
+``` java
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
+public class SettingActivity extends Activity {
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_setting);
+    }
+}
+```
+
+## res/menu/main_menu.xml
+``` xml
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/baseline_settings_white_48"
+        android:title=""
+        app:showAsAction="always"/>
+</menu>
+```
+
+## MainActivity.java
+``` java
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setTitle(R.string.main_title);
+
+        Button alarmBtn=findViewById(R.id.alarm_btn);
+        alarmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                boolean messageAlarm=pref.getBoolean("message_alarm",false);
+                boolean alarm=pref.getBoolean("alarm",false);
+                String alarmSound=pref.getString("alarm_sound","오바마카카오톡");
+                if(messageAlarm&&alarm){
+                    String fileName="";
+                    MediaPlayer mp = null;
+                    switch (alarmSound){
+                        case "오바마카카오톡":
+                            mp = MediaPlayer.create(MainActivity.this,R.raw.kakao_obama);
+                            break;
+                        case "카카오톡":
+                            mp = MediaPlayer.create(MainActivity.this,R.raw.kakaotalk);
+                            break;
+                        case "카톡":
+                            mp = MediaPlayer.create(MainActivity.this,R.raw.katok);
+                            break;
+                        case "카톡왔숑":
+                            mp = MediaPlayer.create(MainActivity.this,R.raw.katok2);
+                            break;
+                    }
+                    mp.start();
+                    Toast.makeText(MainActivity.this,alarmSound,Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.setting){
+            Intent intent=new Intent(MainActivity.this,SettingActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}
+```
+
+## AndroidManifest.xml
+``` xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="kr.ac.mjc.config_example">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SettingActivity"></activity>
+    </application>
+
+</manifest>
+```
