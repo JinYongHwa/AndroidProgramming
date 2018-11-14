@@ -236,8 +236,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ActionBar actionBar=getSupportActionBar();
-        actionBar.setTitle(R.string.main_title);
+        
 
         Button alarmBtn=findViewById(R.id.alarm_btn);
         Button configClearBtn=findViewById(R.id.config_clear_btn);
