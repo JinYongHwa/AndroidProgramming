@@ -27,7 +27,7 @@
 [Material Icons](https://material.io/tools/icons/?style=baseline)
 
 ## 카카오톡 알람파일
-[kakao_obama.mp3](https://raw.githubusercontent.com/JinYongHwa/AndroidPrograming/master/ch06/config_example/app/src/main/res/raw/kakao_obama.mp3)
-[kakaotalk.mp3](https://raw.githubusercontent.com/JinYongHwa/AndroidPrograming/master/ch06/config_example/app/src/main/res/raw/kakaotalk.mp3)
-[katok.mp3](https://raw.githubusercontent.com/JinYongHwa/AndroidPrograming/master/ch06/config_example/app/src/main/res/raw/katok.mp3)
-[katok2.mp3](https://raw.githubusercontent.com/JinYongHwa/AndroidPrograming/master/ch06/config_example/app/src/main/res/raw/katok2.mp3)
+- [kakao_obama.mp3](https://raw.githubusercontent.com/JinYongHwa/AndroidPrograming/master/ch06/config_example/app/src/main/res/raw/kakao_obama.mp3)
+- [kakaotalk.mp3](https://raw.githubusercontent.com/JinYongHwa/AndroidPrograming/master/ch06/config_example/app/src/main/res/raw/kakaotalk.mp3)
+- [katok.mp3](https://raw.githubusercontent.com/JinYongHwa/AndroidPrograming/master/ch06/config_example/app/src/main/res/raw/katok.mp3)
+- [katok2.mp3](https://raw.githubusercontent.com/JinYongHwa/AndroidPrograming/master/ch06/config_example/app/src/main/res/raw/katok2.mp3)
