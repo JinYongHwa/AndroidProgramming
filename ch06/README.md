@@ -26,4 +26,5 @@
 ## 안드로이드 Material Icons
 [Material Icons](https://material.io/tools/icons/?style=baseline)
 
-
+## 카카오톡 알람파일
+[kakao_obama.mp3](https://raw.githubusercontent.com/JinYongHwa/AndroidPrograming/master/ch06/config_example/app/src/main/res/raw/kakao_obama.mp3)
