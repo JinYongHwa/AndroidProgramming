@@ -183,6 +183,32 @@ public class SettingActivity extends Activity {
 </menu>
 ```
 
+## activity_main.xml
+```java
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/alarm_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="알람"
+        android:textSize="@dimen/text_size" />
+
+    <Button
+        android:id="@+id/config_clear_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="설정초기화" />
+</LinearLayout>
+```
+
 ## MainActivity.java
 ``` java
 import android.content.Intent;
@@ -210,10 +236,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ActionBar actionBar=getSupportActionBar();
-        actionBar.setTitle(R.string.main_title);
+        
 
         Button alarmBtn=findViewById(R.id.alarm_btn);
+        Button configClearBtn=findViewById(R.id.config_clear_btn);
         alarmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -241,6 +267,15 @@ public class MainActivity extends AppCompatActivity {
                     mp.start();
                     Toast.makeText(MainActivity.this,alarmSound,Toast.LENGTH_SHORT).show();
                 }
+
+            }
+        });
+        configClearBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                SharedPreferences.Editor editor=pref.edit();
+                editor.clear().commit();
 
             }
         });
