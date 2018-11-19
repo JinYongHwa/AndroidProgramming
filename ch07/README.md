@@ -1,3 +1,40 @@
+## gradle.build (Project)
+``` build
+
+buildscript {
+    
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath "io.realm:realm-gradle-plugin:3.5.0"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+```
+
+## gradle.build (app)
+``` build
+//상단에 추가
+apply plugin: 'realm-android'
+
+```
+
 ## Student.java
 ``` java
 import io.realm.RealmObject;
@@ -166,6 +203,17 @@ public class StudentAdapter extends BaseAdapter {
         return itemLayout;
     }
 }
+```
+## arrays.xml
+``` xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cls_list">
+        <item>1반</item>
+        <item>2반</item>
+        <item>3반</item>
+    </string-array>
+</resources>
 ```
 
 ## activity_add_student.xml
@@ -387,4 +435,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mStudentAdapter.notifyDataSetChanged();
     }
 }
+```
+
+## AndroidManifes.xml
+``` xml
+<activity android:name=".AddStudentActivity"></activity> //추가
 ```
