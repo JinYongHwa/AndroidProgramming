@@ -4,16 +4,20 @@
 apply plugin: 'com.android.application'
 
 android {
+    
+    //컴파일 시킬 SDK 버전
     compileSdkVersion 28
     defaultConfig {
-        applicationId "kr.ac.mjc.build_example"
-        minSdkVersion 15
-        targetSdkVersion 28
-        versionCode 4
-        versionName "1.${android.defaultConfig.versionCode-1}"
+        applicationId "kr.ac.mjc.build_example"     //어플리케이션의 고유한 ID값(패키지명)
+        minSdkVersion 15                            //어플리케이션의 최소 OS 버전
+        targetSdkVersion 28                         //최적화시킬 SDK 버전
+        versionCode 4                               //애플리케이션의 버전코드
+        versionName "1.${android.defaultConfig.versionCode-1}"  //애플리케이션의 버전명
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        setProperty("archivesBaseName","example-${versionName}")
+        setProperty("archivesBaseName","example-${versionName}") //apk 파일명
     }
+    
+    //서명파일 설정정보
     signingConfigs {
         release {
             storeFile file("build_test.jks")
@@ -25,8 +29,8 @@ android {
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.release
-            minifyEnabled false
+            signingConfig signingConfigs.release    //서명파일 설정정보
+            minifyEnabled false                     
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
