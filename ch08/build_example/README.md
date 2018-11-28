@@ -20,9 +20,9 @@ android {
     //서명파일 설정정보
     signingConfigs {
         release {
-            storeFile file("build_test.jks")
+            storeFile file("build_example.jks")
             storePassword "mjc2018"
-            keyAlias "mjc"
+            keyAlias "build_example"
             keyPassword "mjc2018"
             v2SigningEnabled true
         }
