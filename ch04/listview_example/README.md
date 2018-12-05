@@ -1,3 +1,4 @@
+# ListView 다루기
 
 
 ## list_item.xml
@@ -266,6 +267,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         mListView=findViewById(R.id.listview);
 
+        //배열에 100 개의 더미 데이터 만들어 넣기
         for(int i=0;i<100;i++){
             Drawable icon;
             if(i%2==0){
@@ -277,13 +279,17 @@ public class MainActivity extends Activity {
 
             mList.add(new ListItem(icon,"제목"+i,"설명"+i,"가격"+i));
         }
-
+        
+        //어뎁터 생성
         final ListAdapter adapter=new ListAdapter(this,mList);
-
+        //생성된 어뎁터를 리스트뷰에 설정해줌
         mListView.setAdapter(adapter);
+        
+        //리스트뷰의 각아이템을 클릭했을때의 이벤트를 처리하는 리스너 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //어뎁터의 getItem메소드를 이용해 현재 클릭된 위치의 아이템을 
                 ListItem item=adapter.getItem(position);
                 Toast.makeText(MainActivity.this, item.getData1(), Toast.LENGTH_SHORT).show();
             }
