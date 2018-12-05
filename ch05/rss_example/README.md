@@ -1,8 +1,12 @@
 # RSS 예제
+> SBS RSS 를 읽어와 리스트뷰로 표시해 주기
+
 - [gson-xml](https://github.com/stanfy/gson-xml)
 - [SBS RSS](http://news.sbs.co.kr/news/rss.do)
 
 ## app/build.gradle
+> Http 요청을위해 okhttp 라이브러리추가
+> xml 파싱을 위해 gson-xml 라이브러리추가
 ```
 implementation 'com.stanfy:gson-xml-java:0.1.+'
 implementation 'com.squareup.okhttp3:okhttp:3.11.0'
@@ -14,6 +18,7 @@ implementation 'com.squareup.okhttp3:okhttp:3.11.0'
 ```
 
 ## Rss.java
+> RSS 전체를 구조화시킨 class
 ``` java
 public class Rss {
     Channel channel;
@@ -72,6 +77,7 @@ public class Item {
 ```
 
 ## Enclosure.java 
+> 뉴스의 이미지정보를 저장하는 class
 ``` java
 
 import com.google.gson.annotations.SerializedName;
@@ -261,9 +267,9 @@ public class NewsActivity extends Activity {
         WebView webView=findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
-
+        //Intent 로부터 Url 값을 얻어옴
         String url=getIntent().getStringExtra("url");
-        webView.loadUrl(url);
+        webView.loadUrl(url);   //웹뷰에 Url 을 띄우도록 
     }
 }
 ```
@@ -315,6 +321,8 @@ import okhttp3.Response;
 import static android.content.Intent.ACTION_VIEW;
 
 public class MainActivity extends Activity implements Callback {
+
+    //XML파서의 파싱방법을 설정한 인스턴스
     XmlParserCreator parserCreator = new XmlParserCreator() {
         @Override
         public XmlPullParser createParser() {
@@ -339,20 +347,24 @@ public class MainActivity extends Activity implements Callback {
         mListView=findViewById(R.id.listview);
         mAdapter=new NewsAdapter(this,newsList);
         mListView.setAdapter(mAdapter);
+        
+        //뉴스한개를 클릭했을때 이벤트 처리 리스너
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Item item=mAdapter.getItem(position);
-                Intent intent=new Intent(ACTION_VIEW, Uri.parse(item.getLink()));
+                Intent intent=new Intent(MainActivity.this, NewsActivity.class);
+                intent.putExtra("url",item.getLink());  //NewsActivity 에 Url 을 Intent 에 담아서 액티비티를 
                 startActivity(intent);
             }
         });
-
+        
+        //OkHttpClient 를 생성해 SBS RSS 링크를 호출함
         OkHttpClient client=new OkHttpClient();
         Request request=new Request.Builder()
                 .url("https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=01&plink=RSSREADER")
                 .build();
-
+        //호출한 결과를 현재 액티비티에 오버라이드 된 onResponse 로 넘어가도록 설정
         client.newCall(request).enqueue(this);
 
 
@@ -365,16 +377,25 @@ public class MainActivity extends Activity implements Callback {
 
     @Override
     public void onResponse(Call call, Response response) throws IOException {
+        //응답이 성공했을경우
         if(response.code()==200){
+            //응답된 rss 데이터를 얻어옴
             String xml=response.body().string();
+            
+            //Xml 파서를 설정해줌
             GsonXml gsonXml = new GsonXmlBuilder()
                     .setXmlParserCreator(parserCreator)
-                    .setSameNameLists(true)
+                    .setSameNameLists(true)     //<item> 태그가 여러개인경우 ArrayList로 읽어오도록 설정
                     .create();
+             //응답을 파싱해서 Rss 클래스형태로 반환시킴
             Rss rss = gsonXml.fromXml(xml, Rss.class);
+            //뉴스 리스트를 초기화함
             newsList.clear();
             if(rss.channel.item!=null){
+                //파싱해온 값을 뉴스리스트에 복사함
                 newsList.addAll(rss.channel.item);
+                
+                //UI스레드로 리스트뷰를 다시그리도록 명령을 
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
