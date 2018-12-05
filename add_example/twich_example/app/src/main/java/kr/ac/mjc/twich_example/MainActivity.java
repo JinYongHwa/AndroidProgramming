@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements Callback{
     public void onResponse(Call call, Response response) throws IOException {
         String body=response.body().string();
         GameTopList gameTopList=new Gson().fromJson(body,GameTopList.class);
-        Log.d("MainActivity",String.format("size : %d",gameTopList.getTop().size()));
         mGameList.clear();
         mGameList.addAll(gameTopList.getTop());
 
