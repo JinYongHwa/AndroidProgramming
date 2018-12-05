@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 ```
 
 ## CountService.java
-```
+``` java
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
