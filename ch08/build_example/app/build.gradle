@@ -7,7 +7,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 4
-        versionName "1.${android.defaultConfig.versionCode-1}"
+        versionName "1.${versionCode-1}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName","example-${versionName}")
     }
