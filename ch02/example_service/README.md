@@ -1,7 +1,7 @@
 # Android Service 예제
 
 ## MainActivity.java
-```
+``` java
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -95,6 +95,6 @@ public class CountService extends Service implements Runnable{
 
 
 ## AndroidManifest.xml
-```
+``` xml
 <service android:name=".CountService"></service>
 ```
