@@ -1,5 +1,5 @@
 ## MainActivity.java
-```
+``` java
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 ```
 
 ## SecondActivity.java
-```
+``` java
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -106,6 +106,6 @@ public class SecondActivity extends Activity {
 ```
 
 ## AndroidManifest.xml
-```
+``` xml
 <activity android:name=".SecondActivity"></activity>
 ```
