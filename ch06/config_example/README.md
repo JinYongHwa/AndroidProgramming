@@ -1,4 +1,5 @@
 ## res/values/styles.xml
+> 액티비티의 스타일을 정의하는 리소스파일
 ``` xml
 <resources>
     <!-- Base application theme. -->
@@ -16,6 +17,7 @@
 
 
 ## res/values/arrays.xml
+> 문자열배열을 저장하는 리소스 파일
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
@@ -30,6 +32,7 @@
 ```
 
 ## res/values/colors.xml
+> 색상값을 저장하는 리소스파일
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
@@ -40,6 +43,7 @@
 ```
 
 ## res/values/dimens.xml
+> 각종 사이즈값을 저장하는 리소스파일
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
@@ -48,6 +52,7 @@
 ```
 
 ## res/values/strings.xml
+> 문자열 값을 저장하는 리소스파일
 ``` xml
 <resources>
     <string name="app_name">config_example</string>
@@ -56,7 +61,7 @@
 ```
 
 ## res/xml/setting.xml
-
+> 설정화면을 정의한 레이아웃파일
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
@@ -88,6 +93,7 @@
 ```
 
 ## SettingFragment.java
+> 설정화면을 관장하는 Fragment
 ``` java
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -98,7 +104,8 @@ import android.preference.SwitchPreference;
 import android.support.annotation.Nullable;
 
 public class SettingFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
-
+    
+    //xml 에 정의된 설정 위젯들을 멤버변수로 선언
     SwitchPreference messageAlarmSwitch;
     SwitchPreference alarmSwitch;
     SwitchPreference vibrateSwitch;
@@ -106,13 +113,18 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.setting);
-
+        addPreferencesFromResource(R.xml.setting);  //setting.xml 을 현재 Fragment의 레이아웃으로 등록함
+        
+        //SharedPreference 로부터 설정이 저장된 객체를 얻어옴
         SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getActivity());
+        
+        //setting.xml 로부터 위젯들을 얻어와 초기화
         messageAlarmSwitch= (SwitchPreference) findPreference("message_alarm");
         alarmSwitch= (SwitchPreference) findPreference("alarm");
         vibrateSwitch= (SwitchPreference) findPreference("vibrate");
         alarmSoundList= (ListPreference) findPreference("alarm_sound");
+        
+        //설정값이 변경되었을때 현재클래스의 onSharedPreferenceChanged 가 호출되도록함
         pref.registerOnSharedPreferenceChangeListener(this);
 
         boolean messageAlarm=pref.getBoolean("message_alarm",false);
@@ -128,14 +140,17 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
             alarmSoundList.setEnabled(false);
         }
     }
-
+    
+    //설정값이 변경되었을때 호출되는 메소드
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
+        //변경된 설정값의 key 가 alarm_sound 일경우
         if(key.equals("alarm_sound")){
             alarmSoundList.setSummary(sharedPreferences.getString("alarm_sound", ""));
         }
         if(key.equals("message_alarm")){
+            //message_alarm 이 꺼진경우 알람,진동,알람사운드 전체를 disable
+            //message_alarm 이 꺼진경우 알람,진동,알람사운드 전체를 enable 
             boolean messageAlarm=sharedPreferences.getBoolean("message_alarm",false);
             if(messageAlarm){
                 alarmSwitch.setEnabled(true);
@@ -169,6 +184,7 @@ public class SettingActivity extends Activity {
 ```
 
 ## res/menu/main_menu.xml
+> 메인액티비티의 ActionBar를 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -281,15 +297,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //액션바를 main_menu.xml 로 초기화시켜줌
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
         return true;
     }
-
+    //액션바의 버튼이 클릭되었을시
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //설정 버튼이 클릭되었을시
         if(item.getItemId()==R.id.setting){
+            //SettingActivity를 띄움
             Intent intent=new Intent(MainActivity.this,SettingActivity.class);
             startActivity(intent);
         }
