@@ -42,6 +42,8 @@ public class NewsAdapter extends BaseAdapter {
         Item item=getItem(position);
         itemLayout.setItem(item);
 
+
+
         return itemLayout;
     }
 }

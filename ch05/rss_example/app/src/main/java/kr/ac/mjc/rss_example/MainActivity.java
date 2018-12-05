@@ -56,7 +56,8 @@ public class MainActivity extends Activity implements Callback {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Item item=mAdapter.getItem(position);
-                Intent intent=new Intent(ACTION_VIEW, Uri.parse(item.getLink()));
+                Intent intent=new Intent(MainActivity.this,NewsActivity.class);
+                intent.putExtra("url",item.getLink());
                 startActivity(intent);
             }
         });
