@@ -9,7 +9,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0'
-        classpath "io.realm:realm-gradle-plugin:3.5.0"
+        classpath "io.realm:realm-gradle-plugin:3.5.0"  //Realm을 추가해줌
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -36,13 +36,16 @@ apply plugin: 'realm-android'
 ```
 
 ## Student.java
+> Realm 에 저장하기위한 학생 클래스
 ``` java
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-
+//RealmObject 를 상속받아 저장될수 있는 클래스를 만들어준다
 public class Student extends RealmObject {
 
     private String name;
+    
+    //학번을 고유한 키값으로 
     @PrimaryKey
     private String studentNumber;
     private int cls;
@@ -288,6 +291,7 @@ public class AddStudentActivity extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        //추가 버튼이 클릭됬는지 체크
         if(v.getId()==R.id.add_btn){
             String name=nameEt.getText().toString();
             if(name.length()==0){
@@ -299,7 +303,7 @@ public class AddStudentActivity extends Activity implements View.OnClickListener
                 showToast("학번을 입력해주세요");
                 return;
             }
-
+            //Spinner 로부터 선택된 값에따라 정수형 cls 값을 변경해줌
             String clsStr=clsSp.getSelectedItem().toString();
             int clsInt=1;
             switch (clsStr){
@@ -311,23 +315,32 @@ public class AddStudentActivity extends Activity implements View.OnClickListener
                 case "3반":
                     clsInt=3;
             }
+            //학번은 고유한 값을 가져야되기 때문에
+            //이미 같은학번을 가진 학생이 Realm 에 저장되었는지 확인을 위해 학번으로 조회
             Realm realm = Realm.getDefaultInstance();
             Student findStudent=realm.where(Student.class)
                     .equalTo("studentNumber",studentNumber)
                     .findFirst();
+                    
+             //반환된학생이 있을경우 중복된학번이므로 등록이되지않게한다
             if(findStudent!=null){
                 showToast("이미 존재하는 학번입니다");
                 return;
             }
+            //저장해야할 학생정보를 생성시켜준다
             Student student=new Student();
             student.setName(name);
             student.setStudentNumber(studentNumber);
             student.setCls(clsInt);
-
+            
+            //Realm 에 정보를 저장,변경하기 위해 transaction 을 생성시켜 
+            //스레드로부터 안전한 상태를 만들어준다
             realm.beginTransaction();
-            realm.copyToRealm(student);
+            realm.copyToRealm(student); //Realm 에 현재 생성한 학생정보를 복사함
             realm.commitTransaction();
-
+            
+            //저장이 성공했으니 리스트뷰를 다시그리도록
+            //결과값을 
             setResult(RESULT_OK);
             finish();
 
@@ -397,15 +410,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         addStudentBtn=findViewById(R.id.add_student_btn);
         listView=findViewById(R.id.listview);
-        Realm.init(this);
-        Realm realm = Realm.getDefaultInstance();
+        Realm.init(this);   //Realm 최초 실행시 Init메소드를 호출해 초기화해준다
+        Realm realm = Realm.getDefaultInstance();   //Realm 인스턴스를 얻어옴
+        //Realm 으로부터 저장된 전체학생정보를 검색해온다
         List<Student> studentList=realm.where(Student.class)
                 .findAll();
 
-        mStudentAdapter=new StudentAdapter(this,studentList);
-        listView.setAdapter(mStudentAdapter);
+        mStudentAdapter=new StudentAdapter(this,studentList);   //학생리스트를 넘겨 어뎁터를 생성함
+        listView.setAdapter(mStudentAdapter);   
         listView.setOnItemClickListener(this);
-
+        //학생 추가버튼 클릭시
         addStudentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -417,7 +431,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //학생추가 Activity 로부터 학생추가가 성공했다는 결과값을 받을시
         if(requestCode==REQUEST_ADD_STUDENT && resultCode==RESULT_OK){
+            //학생 리스트를 리스트뷰에 다시 그리도록 어뎁터에 요청해준다
             mStudentAdapter.notifyDataSetChanged();
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -425,14 +441,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //어뎁터의 getItem 메소드를 호출해 현제 사용자가 클릭한 위치의
+        //학생 객체를 얻어온다
         Student student=mStudentAdapter.getItem(position);
         Realm realm=Realm.getDefaultInstance();
+        //학생정보를 삭제하기위해 transaction 을 만들어 스레드로부터 안전한상태를 만들어준다
         realm.beginTransaction();
         realm.where(Student.class)
-                .equalTo("studentNumber",student.getStudentNumber())
-                .findFirst().deleteFromRealm();
+                .equalTo("studentNumber",student.getStudentNumber())  //학번정보를 이용해 학생을 검색함
+                .findFirst().deleteFromRealm();         //검색된 학생 삭제
         realm.commitTransaction();
-        mStudentAdapter.notifyDataSetChanged();
+        //삭제된데이터를 반영해 ListView를 다시그리도록 요청함
+        mStudentAdapter.notifyDataSetChanged();     
     }
 }
 ```
