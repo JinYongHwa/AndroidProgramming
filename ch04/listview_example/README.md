@@ -76,11 +76,12 @@
 ```
 
 ## ListItem.java
+> 리스트에 들어가는 한개의 아이템에 대해 정의한 클래스
 ``` java
 import android.graphics.drawable.Drawable;
 
 public class ListItem {
-    private Drawable mIcon;
+    private Drawable mIcon;     //이미지
     private String data1;
     private String data2;
     private String data3;
@@ -127,6 +128,7 @@ public class ListItem {
 ```
 
 ## ListItemView.java
+> 리스트에 들어가는 한개의 아이템의 레이아웃을 정의한 클래스
 ``` java
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -144,10 +146,14 @@ public class ListItemView extends LinearLayout {
 
     public ListItemView(Context context) {
         super(context);
+        
+        //시스템으로부터 LayoutInflater 를 얻어온다
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //레이아웃을 가져와서 현재의 클래스에 포함시킨다
         inflater.inflate(R.layout.list_item, this, true);
-
+        
+        //레이아웃으로부터 위젯을 가져와 초기화시켜준다
         mIconIV=findViewById(R.id.icon_iv);
         data1TV=findViewById(R.id.data1_tv);
         data2TV=findViewById(R.id.data2_tv);
@@ -171,6 +177,7 @@ public class ListItemView extends LinearLayout {
 ```
 
 ## ListAdapter.java
+> 데이터를 받아와서 리스트뷰에 그리도록 도와주는 클래스
 ``` java
 import android.content.Context;
 import android.view.View;
@@ -181,40 +188,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdapter extends BaseAdapter {
-
+    //배열에 그려질 배열 데이터
     List<ListItem> mList=new ArrayList<ListItem>();
+    //레이아웃을 생성시키기위한 Context
     Context mContext;
 
     public ListAdapter(Context context,List<ListItem> list){
         this.mContext=context;
         this.mList=list;
     }
-
+    
+    //어뎁터가 리스트뷰를 그리기위해 아이템 총 갯수를 반환해준다
     @Override
     public int getCount() {
         return mList.size();
     }
-
+    
+    //position에 대한 아이템값을 리턴해준다 
     @Override
     public ListItem getItem(int position) {
         return mList.get(position);
     }
-
+    
+    //position에 대한 아이템의 ID 값을 반환해준다
     @Override
     public long getItemId(int position) {
         return position;
     }
-
+    
+    //리스트뷰에 한개의 아이템을 그리기위한 View 를 초기화해 반환시켜준다
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ListItemView itemView;
+        //리스트뷰가 뷰를 재사용할경우 레이아웃을 Inflate 하지않고 화면에 보이지 않는 뷰를 재사용한다
+        //재사용할경우 재사용된 뷰를 convertView 로 넘겨받아서 데이터만 변경해준뒤 다시 리스트뷰에 그려주게된다 
         if(convertView==null){
             itemView=new ListItemView(mContext);
         }
         else{
             itemView= (ListItemView) convertView;
         }
+        
+        //position 에 해당하는 아이템 객체를 얻어옴
         ListItem item=getItem(position);
+        
+        //아이템으로부터 정보를 얻어와 그려질 레이아웃에 설정해준다
         itemView.setIcon(item.getmIcon());
         itemView.setData1(item.getData1());
         itemView.setData2(item.getData2());
