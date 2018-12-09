@@ -8,6 +8,7 @@
 > Http 요청을위해 okhttp 라이브러리추가
 > xml 파싱을 위해 gson-xml 라이브러리추가
 ```
+implementation 'com.github.bumptech.glide:glide:4.8.0'
 implementation 'com.stanfy:gson-xml-java:0.1.+'
 implementation 'com.squareup.okhttp3:okhttp:3.11.0'
 ```
