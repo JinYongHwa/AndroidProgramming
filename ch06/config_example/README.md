@@ -167,6 +167,18 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
 }
 ```
 
+## activity_setting.xml
+``` xml
+<?xml version="1.0" encoding="utf-8"?>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:name="kr.ac.mjc.config_example.SettingFragment"
+    android:id="@+id/setting_fragment">
+
+</fragment>
+```
+
 ## SettingActivity.java
 ``` java
 import android.app.Activity;
