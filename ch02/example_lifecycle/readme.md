@@ -1,3 +1,6 @@
+## Activity Lifecycle
+https://developer.android.com/guide/components/activities/activity-lifecycle?hl=ko
+
 ## MainActivity.java
 ``` java
 import android.content.Intent;
