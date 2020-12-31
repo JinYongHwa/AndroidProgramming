@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">rssreader</string>
+    <string name="app_name">뉴스리더</string>
+
+    <string name="category1">정치</string>
+    <string name="category2">경제</string>
+    <string name="category3">사회</string>
+    <string name="category4">생활</string>
+    <string name="category5">국제</string>
 </resources>

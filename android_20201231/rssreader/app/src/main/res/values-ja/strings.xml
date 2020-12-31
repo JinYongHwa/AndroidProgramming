@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ニュース</string>
+    <string name="category1">政治</string>
+    <string name="category2">経済</string>
+    <string name="category3">社会</string>
+    <string name="category4">生活</string>
+    <string name="category5">国際</string>
+</resources>

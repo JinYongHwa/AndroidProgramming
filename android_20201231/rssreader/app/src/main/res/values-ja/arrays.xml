@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categorys">
+        <item>政治</item>
+        <item>経済</item>
+        <item>社会</item>
+        <item>生活</item>
+        <item>国際</item>
+    </string-array>
+</resources>

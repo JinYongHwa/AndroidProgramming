@@ -1,5 +1,7 @@
 package kr.ac.mjc.rssreader;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -7,6 +9,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
+
+    Context mContext;
+
+    public ViewPagerAdapter(Context context, FragmentManager fm, int behavior){
+        this(fm,behavior);
+        mContext=context;
+    }
     public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
@@ -36,18 +45,20 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position){
-            case 0:
-                return "정치";
-            case 1:
-                return "경제";
-            case 2:
-                return "사회";
-            case 3:
-                return "생활";
-            default:
-                return "국제";
-                    
-        }
+        String[] categorys=mContext.getResources().getStringArray(R.array.categorys);
+        return categorys[position];
+//        switch (position){
+//            case 0:
+//                return mContext.getResources().getString(R.string.category1);
+//            case 1:
+//                return mContext.getResources().getString(R.string.category2);
+//            case 2:
+//                return mContext.getResources().getString(R.string.category3);
+//            case 3:
+//                return mContext.getResources().getString(R.string.category4);
+//            default:
+//                return mContext.getResources().getString(R.string.category5);
+//
+//        }
     }
 }
