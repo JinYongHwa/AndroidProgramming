@@ -18,10 +18,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
 
     Context mContext;
     List<Item> mNewsList;
+    OnNewsClickListener mOnNewsClickListener;
 
     public NewsAdapter(Context context, List<Item> newsList){
         this.mContext=context;
         this.mNewsList=newsList;
+    }
+
+    public void setOnNewsClickLisener(OnNewsClickListener listener){
+        this.mOnNewsClickListener=listener;
     }
 
     @NonNull
@@ -48,19 +53,31 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
         ImageView imageIv;
         TextView titleTv;
         TextView authorTv;
+        Item mItem;
 
         public NewsHolder(@NonNull View itemView) {
             super(itemView);
             imageIv=itemView.findViewById(R.id.image_iv);
-            titleTv=itemView.findViewById(R.id.title_tv);
+            titleTv=itemView.findViewById(R.id.webview);
             authorTv=itemView.findViewById(R.id.author_tv);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnNewsClickListener.onNewsClick(mItem);
+                }
+            });
         }
 
         public void bind(Item item){
             titleTv.setText(item.getTitle());
             authorTv.setText(item.getAuthor());
             Glide.with(imageIv).load(item.getEnclosure().getUrl()).into(imageIv);
+            mItem=item;
         }
+    }
+
+    interface OnNewsClickListener{
+        public void onNewsClick(Item item);
     }
 }
 

@@ -1,6 +1,9 @@
 package kr.ac.mjc.rssreader;
 
-public class Item {
+
+import java.io.Serializable;
+
+public class Item implements Serializable {
     private String title;
     private String link;
     private String author;

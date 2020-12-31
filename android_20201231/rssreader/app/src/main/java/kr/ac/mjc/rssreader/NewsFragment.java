@@ -1,5 +1,6 @@
 package kr.ac.mjc.rssreader;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -30,7 +31,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class NewsFragment extends Fragment {
+public class NewsFragment extends Fragment implements NewsAdapter.OnNewsClickListener {
 
     public NewsFragment(String url){
         this.mUrl=url;
@@ -69,6 +70,8 @@ public class NewsFragment extends Fragment {
 
         mAdapter=new NewsAdapter(getActivity(),newsList );
         listRv.setAdapter(mAdapter);
+
+        mAdapter.setOnNewsClickLisener(this);
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
         listRv.setLayoutManager(linearLayoutManager);
@@ -109,5 +112,13 @@ public class NewsFragment extends Fragment {
 //                Log.d("rssreader",response.body().string());
             }
         });
+    }
+
+    @Override
+    public void onNewsClick(Item item) {
+        Log.d("onNewsClick",item.getTitle());
+        Intent intent=new Intent(getActivity(),NewsActivity.class);
+        intent.putExtra("item",item);
+        startActivity(intent);
     }
 }
