@@ -2,7 +2,7 @@ package kr.ac.mjc.rssreader;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Enclosure {
+public class Enclosure  {
 
     @SerializedName("@url")
     private  String url;

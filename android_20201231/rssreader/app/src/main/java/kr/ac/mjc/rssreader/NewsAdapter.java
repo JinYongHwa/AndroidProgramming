@@ -59,7 +59,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
         public void bind(Item item){
             titleTv.setText(item.getTitle());
             authorTv.setText(item.getAuthor());
-            Glide.with(imageIv).load(item.getEnclosur().getUrl()).into(imageIv);
+            Glide.with(imageIv).load(item.getEnclosure().getUrl()).into(imageIv);
         }
     }
 }

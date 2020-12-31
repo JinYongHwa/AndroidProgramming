@@ -4,7 +4,7 @@ public class Item {
     private String title;
     private String link;
     private String author;
-    private Enclosure enclosur;
+    private Enclosure enclosure;
 
     public String getTitle() {
         return title;
@@ -30,11 +30,11 @@ public class Item {
         this.author = author;
     }
 
-    public Enclosure getEnclosur() {
-        return enclosur;
+    public Enclosure getEnclosure() {
+        return enclosure;
     }
 
-    public void setEnclosur(Enclosure enclosur) {
-        this.enclosur = enclosur;
+    public void setEnclosure(Enclosure enclosure) {
+        this.enclosure = enclosure;
     }
 }

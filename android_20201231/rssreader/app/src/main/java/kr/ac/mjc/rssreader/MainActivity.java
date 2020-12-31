@@ -3,9 +3,19 @@ package kr.ac.mjc.rssreader;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+
+import com.google.android.material.tabs.TabLayout;
+import com.stanfy.gsonxml.GsonXml;
+import com.stanfy.gsonxml.GsonXmlBuilder;
+import com.stanfy.gsonxml.XmlParserCreator;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,38 +29,18 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    NewsAdapter mAdapter;
-    List<Item> newsList=new ArrayList();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView listRv=findViewById(R.id.list_rv);
-        mAdapter=new NewsAdapter(this,newsList );
-        listRv.setAdapter(mAdapter);
+        ViewPager viewPager=findViewById(R.id.viewpager);
+        TabLayout tab=findViewById(R.id.tab);
+        ViewPagerAdapter adapter=new ViewPagerAdapter(getSupportFragmentManager(),0);
+        viewPager.setAdapter(adapter);
 
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
-        listRv.setLayoutManager(linearLayoutManager);
-
-        String url="https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=01&plink=RSSREADER";
-
-        OkHttpClient client=new OkHttpClient();
-        Request request=new Request.Builder()
-                .url(url)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("rssreader",e.toString());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.d("rssreader",response.body().string());
-            }
-        });
-
+        tab.setupWithViewPager(viewPager);
     }
 }
