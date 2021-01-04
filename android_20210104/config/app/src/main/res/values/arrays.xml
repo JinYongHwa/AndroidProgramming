@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sound_list">
+        <item>오바마카카오톡</item>
+        <item>카카오톡</item>
+        <item>카톡</item>
+    </string-array>
+
+</resources>
