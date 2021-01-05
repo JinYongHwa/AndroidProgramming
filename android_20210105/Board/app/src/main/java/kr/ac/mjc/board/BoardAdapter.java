@@ -15,10 +15,15 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.BoardViewHol
 
     Context mContext;
     List<Board> mBoardList;
+    OnBoardClickListener mListener;
 
     public BoardAdapter(Context context, List<Board> boardList){
         this.mContext=context;
         this.mBoardList=boardList;
+    }
+
+    public void setOnBoardClickListener(OnBoardClickListener listener){
+        this.mListener=listener;
     }
 
     @NonNull
@@ -45,17 +50,31 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.BoardViewHol
         TextView titleTv;
         TextView writeDateTv;
         TextView writerTv;
+        Board mBoard;
 
         public BoardViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTv=itemView.findViewById(R.id.title_tv);
             writeDateTv=itemView.findViewById(R.id.write_date_tv);
             writerTv=itemView.findViewById(R.id.writer_tv);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mListener!=null){
+                        mListener.onClick(mBoard);
+                    }
+                }
+            });
         }
         public void bind(Board board){
             titleTv.setText(board.getTitle());
             writeDateTv.setText(board.getFormattedWriteDate());
             writerTv.setText(board.getWriter());
+            mBoard=board;
         }
+    }
+
+    interface OnBoardClickListener{
+        public void onClick(Board board);
     }
 }

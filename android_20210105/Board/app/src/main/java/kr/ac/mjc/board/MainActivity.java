@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -33,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.view.View.GONE;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BoardAdapter.OnBoardClickListener {
 
     BoardAdapter mAdapter;
     List<Board> mBoardList=new ArrayList<>();
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
     int mPage=1;
     ProgressBar mloadingPb;
+    boolean mScrollLock=false;
+
+    Navigator mNavigator;
 
 
     @Override
@@ -55,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         mAdapter=new BoardAdapter(this,mBoardList);
         listRv.setAdapter(mAdapter);
 
+        mAdapter.setOnBoardClickListener(this);
+
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         listRv.setLayoutManager(linearLayoutManager);
 
@@ -63,7 +69,16 @@ public class MainActivity extends AppCompatActivity {
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if(!recyclerView.canScrollVertically(1)){
-                    Toast.makeText(MainActivity.this,"scroll",Toast.LENGTH_SHORT).show();
+                    if(mScrollLock){
+                        return;
+                    }
+                    if(mNavigator.getLastPage()<=mPage){
+                        return;
+                    }
+
+                    mScrollLock=true;
+                    mPage++;
+                    getListPage(mPage);
                 }
             }
 
@@ -84,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getListPage(int page){
+        Log.d("page",String.valueOf(page));
         BoardService boardService=BoardUtil.getInstance().getBoardService();
         startLoading();
         Call<Result> result=boardService.list(page);
@@ -92,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Result> call, Response<Result> response) {
 
                 Result result=response.body();
+                mNavigator=result.getNav();
                 for(Board board:result.getList()){
                     mBoardList.add(board);
                 }
@@ -100,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         endLoading();
                         mAdapter.notifyDataSetChanged();
+                        mScrollLock=false;
                     }
                 });
             }
@@ -111,6 +129,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onClick(Board board) {
+        Log.d("board",String.valueOf(board.getId()));
+        Intent intent=new Intent(this,ViewActivity.class);
+        intent.putExtra("id",board.getId());
+        startActivity(intent);
+    }
 }
 
 class DateDeserailizer implements JsonDeserializer<Date>{
