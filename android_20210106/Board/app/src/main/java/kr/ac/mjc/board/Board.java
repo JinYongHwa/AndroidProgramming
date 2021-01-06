@@ -18,8 +18,6 @@ public class Board {
     private String userId;
 
 
-    private List<String> attachIds=new ArrayList<String>();
-
     private int page;
 
     public Board() {
@@ -29,16 +27,6 @@ public class Board {
     }
 
 
-
-    public List<String> getAttachIds() {
-        return attachIds;
-    }
-
-
-
-    public void setAttachIds(List<String> attachIds) {
-        this.attachIds = attachIds;
-    }
 
 
 

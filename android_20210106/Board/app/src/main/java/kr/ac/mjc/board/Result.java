@@ -7,6 +7,24 @@ public class Result {
     private List<Board> list;
     private Navigator nav;
     private Board board;
+    private boolean isUse;
+    private String message;
+
+    public boolean isUse() {
+        return isUse;
+    }
+
+    public void setUse(boolean use) {
+        isUse = use;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public List<Board> getList() {
         return list;

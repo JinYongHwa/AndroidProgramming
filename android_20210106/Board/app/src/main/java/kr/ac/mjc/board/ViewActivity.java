@@ -48,6 +48,11 @@ public class ViewActivity extends AppCompatActivity{
             public void onResponse(Call<Result> call, Response<Result> response) {
                 Log.d("viewActivity",response.toString());
                 Log.d("viewActivity",response.message());
+                try {
+                    Log.d("viewActivity",response.errorBody().string());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 final Board board=response.body().getBoard();
                 handler.post(new Runnable() {

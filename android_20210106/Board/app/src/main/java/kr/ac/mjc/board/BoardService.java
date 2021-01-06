@@ -15,4 +15,7 @@ public interface BoardService {
 
     @POST("mobile/board.do")
     public Call<Result> item(@Query("id") int id);
+
+    @POST("mobile/checkemail.do")
+    public Call<Result> checkEmail(@Query("email") String email);
 }
