@@ -1,44 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="5dp">
 
-    <TextView
-        android:id="@+id/title_tv"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="TextView"
-        android:textColor="#000000"
-        android:textSize="25sp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/write_date_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textSize="25sp" />
 
-    <TextView
-        android:id="@+id/writer_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/view_count_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="TextView" />
 
-    <TextView
-        android:id="@+id/view_count_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/write_date_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="TextView" />
 
-    <TextView
-        android:id="@+id/text_tv"
-        android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/writer_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/text_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="TextView" />
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/modify_btn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="TextView" />
-</LinearLayout>
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/baseline_create_white_36" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/delete_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/modify_btn"
+        app:layout_constraintEnd_toEndOf="@+id/modify_btn"
+        app:layout_constraintStart_toStartOf="@+id/modify_btn"
+        app:srcCompat="@drawable/baseline_delete_white_36" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

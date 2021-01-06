@@ -28,4 +28,14 @@ public interface BoardService {
     @POST("mobile/userinfo.do")
     public Call<Result> userinfo();
 
+    @POST("mobile/write.do")
+    public Call<Result> write(@Query("title")String title,@Query("text") String text);
+
+    @POST("mobile/remove.do")
+    public Call<Result> remove(@Query("id") int id);
+
+    @POST("mobile/modify.do")
+    public Call<Result> modify(@Query("id") int id,@Query("title") String title,@Query("text") String text);
+
+
 }

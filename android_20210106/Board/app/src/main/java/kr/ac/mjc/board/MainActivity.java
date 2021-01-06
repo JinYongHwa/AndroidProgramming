@@ -1,6 +1,7 @@
 package kr.ac.mjc.board;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,6 +50,9 @@ public class MainActivity extends AppCompatActivity implements BoardAdapter.OnBo
     Navigator mNavigator;
     BoardService boardService;
 
+    final int REQ_WRITE=1000;
+    final int REQ_VIEW=1001;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements BoardAdapter.OnBo
                             public void run() {
                               if(result){
                                   Intent intent=new Intent(MainActivity.this,WriteActivity.class);
-                                  startActivity(intent);
+                                  startActivityForResult(intent,REQ_WRITE);
                               }
                               else{
                                   Intent intent=new Intent(MainActivity.this,LoginActivity.class);
@@ -170,7 +174,24 @@ public class MainActivity extends AppCompatActivity implements BoardAdapter.OnBo
         Log.d("board",String.valueOf(board.getId()));
         Intent intent=new Intent(this,ViewActivity.class);
         intent.putExtra("id",board.getId());
-        startActivity(intent);
+        startActivityForResult(intent,REQ_VIEW);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQ_WRITE&&resultCode==RESULT_OK){
+            mBoardList.clear();
+            mPage=1;
+            mScrollLock=true;
+            getListPage(mPage);
+        }
+        if(requestCode==REQ_VIEW&&resultCode==RESULT_OK){
+            mBoardList.clear();
+            mPage=1;
+            mScrollLock=true;
+            getListPage(mPage);
+        }
     }
 }
 
