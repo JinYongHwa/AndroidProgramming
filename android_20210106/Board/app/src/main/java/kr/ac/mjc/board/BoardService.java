@@ -18,4 +18,7 @@ public interface BoardService {
 
     @POST("mobile/checkemail.do")
     public Call<Result> checkEmail(@Query("email") String email);
+
+    @POST("mobile/join.do")
+    public Call<Result> join(@Query("email") String email,@Query("name") String name,@Query("password") String password);
 }

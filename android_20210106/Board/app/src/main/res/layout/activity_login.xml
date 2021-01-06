@@ -11,7 +11,7 @@
         android:padding="20dp">
 
         <EditText
-            android:id="@+id/constarint"
+            android:id="@+id/email_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

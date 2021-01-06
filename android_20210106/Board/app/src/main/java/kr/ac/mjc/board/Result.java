@@ -8,7 +8,17 @@ public class Result {
     private Navigator nav;
     private Board board;
     private boolean isUse;
+    private boolean result;
     private String message;
+
+
+    public boolean isResult() {
+        return result;
+    }
+
+    public void setResult(boolean result) {
+        this.result = result;
+    }
 
     public boolean isUse() {
         return isUse;
