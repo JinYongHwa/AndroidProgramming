@@ -47,12 +47,13 @@ public class MainActivity extends AppCompatActivity implements BoardAdapter.OnBo
     boolean mScrollLock=false;
 
     Navigator mNavigator;
-
+    BoardService boardService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        boardService=BoardUtil.getInstance(this).getBoardService();
 
         mloadingPb=findViewById(R.id.loading_pb);
         RecyclerView listRv=findViewById(R.id.list_rv);
@@ -60,8 +61,33 @@ public class MainActivity extends AppCompatActivity implements BoardAdapter.OnBo
         writeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
+                Call<Result> call=boardService.userinfo();
+                call.enqueue(new Callback<Result>() {
+                    @Override
+                    public void onResponse(Call<Result> call, Response<Result> response) {
+                        final boolean result=response.body().isResult();
+                        Log.d("MainActivity",String.valueOf(result));
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                              if(result){
+                                  Intent intent=new Intent(MainActivity.this,WriteActivity.class);
+                                  startActivity(intent);
+                              }
+                              else{
+                                  Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                                  startActivity(intent);
+                              }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Call<Result> call, Throwable t) {
+
+                    }
+                });
+
             }
         });
 
@@ -110,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements BoardAdapter.OnBo
 
     public void getListPage(int page){
         Log.d("page",String.valueOf(page));
-        BoardService boardService=BoardUtil.getInstance().getBoardService();
+
         startLoading();
         Call<Result> result=boardService.list(page);
         result.enqueue(new Callback<Result>() {

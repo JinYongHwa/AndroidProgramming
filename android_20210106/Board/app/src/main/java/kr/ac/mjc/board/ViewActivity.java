@@ -41,7 +41,7 @@ public class ViewActivity extends AppCompatActivity{
         Board board=new Board();
         board.setId(id);
 
-        BoardService boardService=BoardUtil.getInstance().getBoardService();
+        BoardService boardService=BoardUtil.getInstance(this).getBoardService();
         Call<Result> result=boardService.item(id);
         result.enqueue(new Callback<Result>() {
             @Override

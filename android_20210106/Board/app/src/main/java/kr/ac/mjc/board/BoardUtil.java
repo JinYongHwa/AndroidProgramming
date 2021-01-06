@@ -1,10 +1,15 @@
 package kr.ac.mjc.board;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.Date;
 
+import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -14,8 +19,14 @@ public class BoardUtil {
     private static BoardUtil instance;
     private BoardService boardService;
 
-    private BoardUtil(){
-        OkHttpClient client=new OkHttpClient.Builder().build();
+    private BoardUtil(Context context){
+
+        PersistentCookieStore persistentCookieStore=new PersistentCookieStore(context);
+        CookieManager cookieManager=new CookieManager(persistentCookieStore, CookiePolicy.ACCEPT_ALL);
+
+        OkHttpClient client=new OkHttpClient.Builder()
+                .cookieJar(new JavaNetCookieJar(cookieManager))
+                .build();
         Gson gson=new GsonBuilder()
                 .registerTypeAdapter(Date.class,new DateDeserailizer())
                 .create();
@@ -29,9 +40,9 @@ public class BoardUtil {
         boardService=retrofit.create(BoardService.class);
     }
 
-    static public BoardUtil getInstance() {
+    static public BoardUtil getInstance(Context context) {
         if(instance==null){
-            instance=new BoardUtil();
+            instance=new BoardUtil(context);
         }
         return instance;
     }

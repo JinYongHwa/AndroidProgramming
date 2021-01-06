@@ -21,4 +21,11 @@ public interface BoardService {
 
     @POST("mobile/join.do")
     public Call<Result> join(@Query("email") String email,@Query("name") String name,@Query("password") String password);
+
+    @POST("mobile/login.do")
+    public Call<Result> login(@Query("email") String email,@Query("password") String password);
+
+    @POST("mobile/userinfo.do")
+    public Call<Result> userinfo();
+
 }

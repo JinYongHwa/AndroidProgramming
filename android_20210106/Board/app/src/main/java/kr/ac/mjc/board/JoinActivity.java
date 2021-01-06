@@ -31,7 +31,7 @@ public class JoinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
 
-        boardService=BoardUtil.getInstance().getBoardService();
+        boardService=BoardUtil.getInstance(this).getBoardService();
 
         final EditText nameEt=findViewById(R.id.name_et);
         final EditText emailEt=findViewById(R.id.email_et);

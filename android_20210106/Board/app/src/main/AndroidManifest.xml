@@ -20,6 +20,7 @@
         <activity android:name=".ViewActivity"></activity>
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".JoinActivity"></activity>
+        <activity android:name=".WriteActivity"></activity>
     </application>
 
 </manifest>
