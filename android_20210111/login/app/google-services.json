@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "188896615214",
+    "project_id": "login-b707b",
+    "storage_bucket": "login-b707b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188896615214:android:1e88bc328fe1090085b8bf",
+        "android_client_info": {
+          "package_name": "kr.ac.mjc.login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188896615214-7c28bj61jfoilm7tck5iqajvgmp60rer.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCS_lZF3y41N2PHQPruVs_AtdW8HnZ81U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188896615214-7c28bj61jfoilm7tck5iqajvgmp60rer.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
