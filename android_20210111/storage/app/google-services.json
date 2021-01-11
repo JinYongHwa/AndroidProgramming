@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1071058067720",
+    "project_id": "storage-a69e0",
+    "storage_bucket": "storage-a69e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071058067720:android:2ecfeb4f897be0ea060cbd",
+        "android_client_info": {
+          "package_name": "kr.ac.mjc.storage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071058067720-4g0jafdmg1u7d5tmr38fpt6f8hteg6im.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.ac.mjc.storage",
+            "certificate_hash": "be5ba212088b0698a92107c26dca645cd42e008c"
+          }
+        },
+        {
+          "client_id": "1071058067720-paqagrbstkfabrqddopemsi003icu8ad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa9suvDajruCh_hGx2cNYJMYWOcA8kehI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071058067720-paqagrbstkfabrqddopemsi003icu8ad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
