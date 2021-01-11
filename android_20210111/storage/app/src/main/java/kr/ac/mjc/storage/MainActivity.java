@@ -2,6 +2,7 @@ package kr.ac.mjc.storage;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -12,13 +13,20 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ImageAdapter.OnImageClickListener {
 
     FirebaseFirestore firestore;
     FirebaseStorage storage;
@@ -27,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView listRv;
 
     final int REQ_IMAGE=1000;
+
+    List<Image> mImageList=new ArrayList<>();
+    ImageAdapter mAdapter=new ImageAdapter(this,mImageList);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +50,28 @@ public class MainActivity extends AppCompatActivity {
 
         imageBtn=findViewById(R.id.image_btn);
         listRv=findViewById(R.id.list_rv);
+
+        listRv.setAdapter(mAdapter);
+
+        mAdapter.setOnImageClickListener(this);
+
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(this,3);
+        listRv.setLayoutManager(gridLayoutManager);
+
+        firestore.collection("Image").orderBy("date", Query.Direction.ASCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        for(DocumentChange dc:value.getDocumentChanges()){
+                            if(dc.getType()== DocumentChange.Type.ADDED){
+                                Image image=dc.getDocument().toObject(Image.class);
+                                mImageList.add(0,image);
+                            }
+                        }
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+
 
         imageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,5 +104,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void onClick(Image image) {
+        Intent intent=new Intent(this,ImageActivity.class);
+        intent.putExtra("image",image);
+        startActivity(intent);
     }
 }

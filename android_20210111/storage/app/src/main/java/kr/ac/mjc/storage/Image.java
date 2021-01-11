@@ -1,8 +1,9 @@
 package kr.ac.mjc.storage;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Image {
+public class Image implements Serializable {
 
     private String imageUrl;
     private Date date;

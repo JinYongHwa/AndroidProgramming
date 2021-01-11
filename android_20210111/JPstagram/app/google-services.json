@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "184582065903",
+    "project_id": "jpstagram-b99c5",
+    "storage_bucket": "jpstagram-b99c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184582065903:android:aba80328c178d4d1a1151a",
+        "android_client_info": {
+          "package_name": "kr.ac.mjc.jpstagram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184582065903-g0boc8551tqh3c6q329348gk9t72rd6i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2_gCt9CeLXWzQABQSsZY9KIw8MQk_0mk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184582065903-g0boc8551tqh3c6q329348gk9t72rd6i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
