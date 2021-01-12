@@ -13,13 +13,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -34,6 +44,10 @@ public class MyFragment  extends Fragment {
 
     ImageView profileIv;
     TextView nameTv;
+
+    List<Post> mPostList=new ArrayList<>();
+    ProfileAdapter mAdapter;
+
 
     @Nullable
     @Override
@@ -50,12 +64,46 @@ public class MyFragment  extends Fragment {
         Button profileBtn=view.findViewById(R.id.profile_btn);
         Button logoutBtn=view.findViewById(R.id.logout_btn);
         loadingPb=view.findViewById(R.id.loading_pb);
+        RecyclerView listRv=view.findViewById(R.id.list_rv);
+
+        mAdapter=new ProfileAdapter(getActivity(),mPostList);
+        listRv.setAdapter(mAdapter);
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),3);
+        listRv.setLayoutManager(gridLayoutManager);
+        mPostList.clear();
+        firestore.collection("Post").whereEqualTo("userId",auth.getCurrentUser().getEmail())
+                .orderBy("date", Query.Direction.ASCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(value!=null){
+                            for(DocumentChange dc:value.getDocumentChanges()){
+                                if(dc.getType()== DocumentChange.Type.ADDED){
+                                    Post post=dc.getDocument().toObject(Post.class);
+                                    mPostList.add(0,post);
+                                }
+                            }
+                            mAdapter.notifyDataSetChanged();
+                        }
+
+                    }
+                });
+
         loadUser();
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getActivity(),ProfileActivity.class);
                 startActivityForResult(intent,REQ_PROFILE);
+            }
+        });
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auth.signOut();
+                Intent intent=new Intent(getActivity(),LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
     }

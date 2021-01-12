@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -98,6 +99,9 @@ public class AddFragment extends Fragment {
                                             public void onSuccess(Void aVoid) {
                                                 loadingPb.setVisibility(GONE);
                                                 clear();
+                                                FragmentActivity fragmentActivity=getActivity();
+                                                MainActivity mainActivity= (MainActivity) fragmentActivity;
+                                                mainActivity.movePage(0);
                                             }
                                         });
                                     }

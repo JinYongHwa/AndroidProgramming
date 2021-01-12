@@ -9,12 +9,14 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
+    ViewPager viewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ViewPager viewPager=findViewById(R.id.viewpager);
+        viewPager=findViewById(R.id.viewpager);
         TabLayout tabLayout=findViewById(R.id.tab_layout);
 
         MainPagerAdapter adapter=new MainPagerAdapter(getSupportFragmentManager(),0);
@@ -27,5 +29,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(2).setIcon(R.drawable.baseline_add_circle_outline_black_48);
         tabLayout.getTabAt(3).setIcon(R.drawable.baseline_shopping_bag_black_48);
         tabLayout.getTabAt(4).setIcon(R.drawable.baseline_account_circle_black_48);
+    }
+
+    public void movePage(int position){
+        viewPager.setCurrentItem(position);
     }
 }

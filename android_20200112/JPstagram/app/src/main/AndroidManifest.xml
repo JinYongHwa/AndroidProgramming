@@ -19,6 +19,7 @@
         <activity android:name=".JoinActivity"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".PostActivity"></activity>
     </application>
 
 </manifest>

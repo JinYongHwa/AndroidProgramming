@@ -1,8 +1,9 @@
 package kr.ac.mjc.jpstagram;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Post {
+public class Post implements Serializable {
 
     private String imageUrl;
     private String text;
