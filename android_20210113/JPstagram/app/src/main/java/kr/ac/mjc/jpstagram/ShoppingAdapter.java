@@ -23,9 +23,14 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
     Context mContext;
     List<Item> mItemList;
 
+    OnShoppingListener mListener;
+
     public ShoppingAdapter(Context context, List<Item> itemList){
         this.mContext=context;
         this.mItemList=itemList;
+    }
+    public void setOnShoppingListener(OnShoppingListener listener){
+        this.mListener=listener;
     }
 
 
@@ -52,12 +57,21 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         ImageView imageIv;
         TextView titleTv;
         TextView priceTv;
+        Item mItem;
 
         public ShoppingHolder(@NonNull View itemView) {
             super(itemView);
             imageIv=itemView.findViewById(R.id.image_iv);
             titleTv=itemView.findViewById(R.id.title_tv);
             priceTv=itemView.findViewById(R.id.price_tv);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mListener!=null){
+                        mListener.onClick(mItem);
+                    }
+                }
+            });
         }
         public void bind(Item item){
             Glide.with(imageIv).load(item.getImage()).into(imageIv);
@@ -65,6 +79,10 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
             priceTv.setText(
                     String.format("%d원",item.getLprice())
             );
+            mItem=item;
         }
+    }
+    interface OnShoppingListener{
+        public void onClick(Item item);
     }
 }

@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import kr.ac.mjc.jpstagram.model.Item;
 import kr.ac.mjc.jpstagram.model.NaverResult;
@@ -27,11 +29,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ShoppingFragment extends Fragment {
+public class ShoppingFragment extends Fragment implements ShoppingAdapter.OnShoppingListener {
 
     ShoppingAdapter mAdapter;
     List<Item> mItemList=new ArrayList<>();
     Handler handler=new Handler();
+
+    Timer timer=new Timer();
+
+    int mPage=1;
+    boolean scrollLock=false;
 
     @Nullable
     @Override
@@ -47,6 +54,23 @@ public class ShoppingFragment extends Fragment {
 
         mAdapter=new ShoppingAdapter(getActivity(),mItemList);
         resultRv.setAdapter(mAdapter);
+        mAdapter.setOnShoppingListener(this);
+
+        resultRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(!recyclerView.canScrollVertically(1)){
+                    if(scrollLock){
+                        return;
+                    }
+                    scrollLock=true;
+                    mPage++;
+                    String query=queryEt.getText().toString();
+                    search(query,mPage);
+                }
+            }
+        });
 
         GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),2);
         resultRv.setLayoutManager(gridLayoutManager);
@@ -59,28 +83,47 @@ public class ShoppingFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                if(timer!=null){
+                    timer.cancel();
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.d("ShoppingFragment",queryEt.getText().toString());
-                search(queryEt.getText().toString());
+
+                String query=queryEt.getText().toString();
+                if(query.length()>=2){
+                    timer=new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            Log.d("ShoppingFragment",queryEt.getText().toString());
+                            search(query,1);
+                        }
+                    },500);
+                }
+
             }
         });
     }
 
-    public void search(String query){
+    public void search(String query,int page){
+        mPage=page;
         NaverService naverService=NaverApi.getInstance().getNaverService();
-        naverService.shopList(query,100,1).enqueue(new Callback<NaverResult>() {
+        int start=1+((page-1)*100);
+        naverService.shopList(query,100,start).enqueue(new Callback<NaverResult>() {
             @Override
             public void onResponse(Call<NaverResult> call, Response<NaverResult> response) {
                 List<Item> items=response.body().getItems();
+                if(page==1){
+                    mItemList.clear();
+                }
                 mItemList.addAll(items);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
                         mAdapter.notifyDataSetChanged();
+                        scrollLock=false;
                     }
                 });
 //                for(Item item:items){
@@ -93,5 +136,10 @@ public class ShoppingFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onClick(Item item) {
+
     }
 }

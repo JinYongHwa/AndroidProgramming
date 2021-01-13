@@ -9,6 +9,9 @@ public class Item {
     private long hprice;
 
     public String getTitle() {
+        if(title!=null){
+            return title.replaceAll("(<([^>]+)>)","");
+        }
         return title;
     }
 
