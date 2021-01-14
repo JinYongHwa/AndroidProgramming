@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_hint">メールアドレスを入力してください</string>
+    <string name="password_hint">パスワードを入力してください</string>
+    <string name="login_label">サインイン</string>
+    <string name="join_label">サインアップ</string>
+
+    <string name="toast_name_check">이름을 입력해주세요</string>
+    <string name="toast_password_check">패스워드는 6자이상 입력해주세요</string>
+    <string name="toast_password_confirm_check">패스워드를 확인해주세요</string>
+    <string name="toast_join_fail">회원가입이 실패하였습니다</string>
+</resources>
