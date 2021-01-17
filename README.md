@@ -9,10 +9,38 @@
 
 ### [Google Play Console](https://play.google.com/apps/publish/?hl=ko)
 
+### getDistance
+> 두 좌표 사이의 거리를 KM 단위로 계산해주는 메소드
+```
+ public static double getDistance(LatLng location1, LatLng location2) {
+        double lat1 = location1.latitude;
+        double lat2 = location2.latitude;
+        double lon1 = location1.longitude;
+        double lon2 = location2.longitude;
+
+        double theta = lon1 - lon2;
+
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;  // mile 로 계산
+        dist = dist * 1.609344; // mile 을 km 로 변환
+
+        return dist;
+    }
+    public static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
+    }
+
+    public static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+    ```
 
 
 ### PersistentCookieStore.java
 > https://gist.github.com/franmontiel/ed12a2295566b7076161
+> Retrofit 에서 쿠키를 사용할수 있게 해주는 모듈
 ``` java
 import android.content.Context;
 import android.content.SharedPreferences;
