@@ -11,7 +11,7 @@
 
 ### getDistance
 > 두 좌표 사이의 거리를 KM 단위로 계산해주는 메소드
-```
+``` java
  public static double getDistance(LatLng location1, LatLng location2) {
         double lat1 = location1.latitude;
         double lat2 = location2.latitude;
