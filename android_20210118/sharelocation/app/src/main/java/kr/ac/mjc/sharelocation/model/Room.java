@@ -1,11 +1,31 @@
 package kr.ac.mjc.sharelocation.model;
 
-public class Room {
+import java.io.Serializable;
 
+public class Room implements Serializable {
+    private String id;
     private String title;
+    private String password;
     private Location targetLocation;
     private String address;
     private int limitUser=10;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getTitle() {
         return title;

@@ -5,6 +5,15 @@ public class User {
     private String name;
     private int status=1;
     private Location location;
+    private String roomId;
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
 
     public String getId() {
         return id;

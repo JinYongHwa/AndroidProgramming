@@ -18,8 +18,8 @@ import com.naver.maps.map.OnMapReadyCallback;
 public class LocationSelectActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     NaverMap mNavermap;
-    final static String NAME_LATITUDE="latitude";
-    final static String NAME_LONGTITUDE="longtitude";
+    public final static String NAME_LATITUDE="latitude";
+    public final static String NAME_LONGTITUDE="longtitude";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

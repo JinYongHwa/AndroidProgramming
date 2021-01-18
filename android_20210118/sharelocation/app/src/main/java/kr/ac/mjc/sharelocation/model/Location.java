@@ -1,6 +1,8 @@
 package kr.ac.mjc.sharelocation.model;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
     private double lat;
     private double lng;
 

@@ -6,12 +6,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import kr.ac.mjc.sharelocation.fragments.JoinFragment;
-import kr.ac.mjc.sharelocation.fragments.RoomCreateFragment;
+import kr.ac.mjc.sharelocation.fragments.ChatFragment;
+import kr.ac.mjc.sharelocation.fragments.DistanceFragment;
+import kr.ac.mjc.sharelocation.fragments.LocationFragment;
 
-public class MainPageAdapter extends FragmentPagerAdapter {
+public class RoomPageAdapter extends FragmentPagerAdapter {
 
-    public MainPageAdapter(@NonNull FragmentManager fm, int behavior) {
+    public RoomPageAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
 
@@ -19,26 +20,33 @@ public class MainPageAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if(position==0){
-            return new RoomCreateFragment();
+            return new LocationFragment();
+        }
+        else if(position==1){
+            return new DistanceFragment();
         }
         else{
-            return new JoinFragment();
+            return new ChatFragment();
         }
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
         if(position==0){
-            return "방생성";
+            return "위치";
+        }
+        else if(position==1){
+            return "거리";
         }
         else{
-            return "방참가";
+            return "채팅";
         }
+
     }
 }
