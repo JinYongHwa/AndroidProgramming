@@ -7,6 +7,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,12 +44,19 @@ public class RoomActivity extends AppCompatActivity implements LocationListener 
 
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        ViewPager viewpager = findViewById(R.id.viewpager);
+        CustomViewPager viewpager = findViewById(R.id.viewpager);
+
         TabLayout tablayout = findViewById(R.id.tablayout);
 
         RoomPageAdapter adapter = new RoomPageAdapter(getSupportFragmentManager(), 0);
         viewpager.setAdapter(adapter);
         tablayout.setupWithViewPager(viewpager);
+        viewpager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
 
         mRoom = (Room) getIntent().getSerializableExtra(NAME_ROOM);
 

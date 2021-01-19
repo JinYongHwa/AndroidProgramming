@@ -22,7 +22,7 @@ public class Board {
 
     public Board() {
         super();
-        writeDate=new Date();
+
 
     }
 

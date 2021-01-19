@@ -35,7 +35,7 @@ public interface BoardService {
     public Call<Result> remove(@Query("id") int id);
 
     @POST("mobile/modify.do")
-    public Call<Result> modify(@Query("id") int id,@Query("title") String title,@Query("text") String text);
+    public Call<Result> modify(@Body Board board);
 
 
 }

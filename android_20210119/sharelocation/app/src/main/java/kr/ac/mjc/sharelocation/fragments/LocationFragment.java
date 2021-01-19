@@ -21,22 +21,29 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.geometry.LatLngBounds;
+import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.LocationOverlay;
 import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.overlay.OverlayImage;
 
+import java.util.HashMap;
 import java.util.List;
 
 import kr.ac.mjc.sharelocation.R;
 import kr.ac.mjc.sharelocation.RoomActivity;
+import kr.ac.mjc.sharelocation.model.Room;
 import kr.ac.mjc.sharelocation.model.User;
 
 public class LocationFragment extends Fragment implements OnMapReadyCallback,RoomActivity.OnLocationChangeListener {
 
     NaverMap mNaverMap;
     LatLng myLocation;
+
+    HashMap<String,Marker> mMarkerStore=new HashMap<>();
 
     FirebaseFirestore firestore=FirebaseFirestore.getInstance();
     FirebaseAuth auth=FirebaseAuth.getInstance();
@@ -68,37 +75,124 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback,Roo
             locationOverlay.setVisible(true);
             locationOverlay.setPosition(myLocation);
         }
-
         String email=auth.getCurrentUser().getEmail();
+
+
+
         firestore.collection("User").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user=documentSnapshot.toObject(User.class);
                 String roomId=user.getRoomId();
 
-                firestore.collection("User").whereEqualTo("roomId",roomId)
+                firestore.collection("Room").document(roomId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Room room=documentSnapshot.toObject(Room.class);
+                        Marker marker=new Marker();
+                        marker.setPosition(new LatLng(room.getTargetLocation().getLat(),room.getTargetLocation().getLng()));
+                        marker.setIcon(OverlayImage.fromResource(R.drawable.baseline_location_on_black_48));
+                        marker.setMap(mNaverMap);
+                        mMarkerStore.put("target",marker);
+                        setBound();
+                    }
+                });
+
+                firestore.collection("User")
                         .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         if(value!=null){
                             List<DocumentChange> documentChanges=value.getDocumentChanges();
                             for(DocumentChange documentChange:documentChanges){
-                                if(documentChange.getType()== DocumentChange.Type.ADDED){
-                                    User user=documentChange.getDocument().toObject(User.class);
-                                    if(!user.getId().equals(email) && user.getLocation()!=null){
-                                        Marker marker=new Marker();
-                                        marker.setPosition(new LatLng(user.getLocation().getLat(),user.getLocation().getLng()));
-                                        marker.setCaptionText(user.getName());
-                                        marker.setMap(mNaverMap);
+                                User user=documentChange.getDocument().toObject(User.class);
+
+                                if(user.getRoomId().equals(roomId)){
+                                    if(documentChange.getType()== DocumentChange.Type.ADDED){
+
+                                        if(!user.getId().equals(email) && user.getLocation()!=null){
+                                            Marker marker=new Marker();
+                                            marker.setPosition(new LatLng(user.getLocation().getLat(),user.getLocation().getLng()));
+                                            marker.setCaptionText(user.getName());
+                                            marker.setMap(mNaverMap);
+                                            mMarkerStore.put(user.getId(),marker);
+                                        }
+                                        else if(user.getId().equals(email)&& user.getLocation()!=null){
+                                            LocationOverlay locationOverlay=mNaverMap.getLocationOverlay();
+                                            locationOverlay.setPosition(new LatLng(user.getLocation().getLat(),user.getLocation().getLng()));
+                                            locationOverlay.setVisible(true);
+
+                                            Marker marker=new Marker();
+                                            marker.setPosition(new LatLng(user.getLocation().getLat(),user.getLocation().getLng()));
+                                            mMarkerStore.put(user.getId(),marker);
+                                        }
+                                    }
+                                    if(documentChange.getType()== DocumentChange.Type.MODIFIED){
+
+                                        if(!user.getId().equals(email) && user.getLocation()!=null){
+                                            Marker marker=mMarkerStore.get(user.getId());
+                                            if(marker!=null){
+                                                marker.setPosition(new LatLng(user.getLocation().getLat(),user.getLocation().getLng()));
+                                                marker.setCaptionText(user.getName());
+                                            }
+
+
+
+                                        }
+                                    }
+                                    if(documentChange.getType()== DocumentChange.Type.REMOVED){
+                                        if(!user.getId().equals(email) && user.getLocation()!=null){
+                                            Marker marker=mMarkerStore.get(user.getId());
+                                            marker.setMap(null);
+                                            mMarkerStore.remove(user.getId());
+                                        }
                                     }
                                 }
+                                else{
+                                    Marker marker=mMarkerStore.get(user.getId());
+                                    if(marker!=null){
+                                        marker.setMap(null);
+                                        mMarkerStore.remove(user.getId());
+                                    }
+
+                                }
+
                             }
+
+                            setBound();
                         }
                     }
                 });
             }
         });
 
+    }
+    public void setBound(){
+        double maxLat=-90;
+        double minLat=90;
+        double maxLng=-180;
+        double minLng=180;
+
+        for(String key:mMarkerStore.keySet()){
+
+            Marker marker=mMarkerStore.get(key);
+            LatLng position=marker.getPosition();
+            if(maxLat<position.latitude){
+                maxLat=position.latitude;
+            }
+            if(minLat>position.latitude){
+                minLat= position.latitude;
+            }
+            if(maxLng<position.longitude){
+                maxLng=position.longitude;
+            }
+            if(minLng>position.longitude){
+                minLng=position.longitude;
+            }
+        }
+
+        LatLngBounds bound=new LatLngBounds(new LatLng(minLat,minLng),new LatLng(maxLat,maxLng));
+        mNaverMap.moveCamera(CameraUpdate.fitBounds(bound,150));
     }
 
 

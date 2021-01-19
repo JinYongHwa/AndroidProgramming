@@ -41,6 +41,8 @@ public class ViewActivity extends AppCompatActivity{
 
     int mId;
 
+    boolean isModifyBoard=false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,7 +182,17 @@ public class ViewActivity extends AppCompatActivity{
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==REQ_MODIFY&&resultCode==RESULT_OK){
+            isModifyBoard=true;
             getBoard(mId);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(isModifyBoard){
+            setResult(RESULT_OK);
+        }
+
+        finish();
     }
 }

@@ -11,12 +11,22 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SecondActivity extends AppCompatActivity {
 
@@ -26,6 +36,9 @@ public class SecondActivity extends AppCompatActivity {
     EditText messageEt;
     Button submitBtn;
     RecyclerView messageRv;
+
+    List<Message> mMessageList=new ArrayList<>();
+    MessageAdapter messageAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +51,42 @@ public class SecondActivity extends AppCompatActivity {
         messageEt=findViewById(R.id.message_et);
         submitBtn=findViewById(R.id.submit_btn);
         messageRv=findViewById(R.id.message_rv);
+
+        Button logoutBtn=findViewById(R.id.logout_btn);
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auth.signOut();
+                Intent intent=new Intent(SecondActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        messageAdapter=new MessageAdapter(this,mMessageList,auth.getCurrentUser());
+        messageRv.setAdapter(messageAdapter);
+
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        messageRv.setLayoutManager(linearLayoutManager);
+
+        firestore.collection("Message").orderBy("sendDate", Query.Direction.ASCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                             for(DocumentChange documentChange:value.getDocumentChanges()){
+                                if(documentChange.getType()== DocumentChange.Type.ADDED){
+                                    Message message=documentChange.getDocument().toObject(Message.class);
+                                    mMessageList.add(message);
+                                }
+                             }
+                             messageAdapter.notifyDataSetChanged();
+                             messageRv.scrollToPosition(mMessageList.size()-1);
+                    }
+                });
+
+
+
+
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

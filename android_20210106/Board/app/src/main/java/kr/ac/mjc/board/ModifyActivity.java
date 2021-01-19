@@ -32,7 +32,7 @@ public class ModifyActivity extends AppCompatActivity {
 
         boardService=BoardUtil.getInstance(this).getBoardService();
 
-        int id=getIntent().getIntExtra("id",-1);
+        final int id=getIntent().getIntExtra("id",-1);
         Log.d("ModifyActivity",String.valueOf(id));
         boardService.item(id).enqueue(new Callback<Result>() {
             @Override
@@ -51,9 +51,14 @@ public class ModifyActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String title=titleEt.getText().toString();
                 String text=textEt.getText().toString();
-                boardService.modify(id,title,text).enqueue(new Callback<Result>() {
+                Board board =new Board();
+                board.setId(id);
+                board.setTitle(title);
+                board.setText(text);
+                boardService.modify(board).enqueue(new Callback<Result>() {
                     @Override
                     public void onResponse(Call<Result> call, Response<Result> response) {
                         boolean result=response.body().isResult();

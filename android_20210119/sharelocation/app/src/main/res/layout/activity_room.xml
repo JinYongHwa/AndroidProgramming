@@ -3,13 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.viewpager.widget.ViewPager
+    <kr.ac.mjc.sharelocation.CustomViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-    </androidx.viewpager.widget.ViewPager>
+    </kr.ac.mjc.sharelocation.CustomViewPager>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout"
