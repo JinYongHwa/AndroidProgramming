@@ -9,6 +9,13 @@
 
 ### [Android Broadcast Receiver](https://developer.android.com/guide/components/broadcasts?hl=ko#java)
 
+### RecyclerView 원리
+![image](https://user-images.githubusercontent.com/21700482/134610022-f3ec13f9-8ba7-47f0-9d94-a4c3e9bc4199.png)
+
+
+
+
+
 
 ### [Google Play Console](https://play.google.com/apps/publish/?hl=ko)
 
