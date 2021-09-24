@@ -7,6 +7,9 @@
 
 ### [Android Studio 설치 매뉴얼](https://developer.android.com/studio/install?hl=ko)
 
+### [Android Broadcast Receiver](https://developer.android.com/guide/components/broadcasts?hl=ko#java)
+
+
 ### [Google Play Console](https://play.google.com/apps/publish/?hl=ko)
 
 ### getDistance
