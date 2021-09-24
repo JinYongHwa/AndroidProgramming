@@ -12,6 +12,7 @@
 ### RecyclerView 원리
 ![image](https://user-images.githubusercontent.com/21700482/134610022-f3ec13f9-8ba7-47f0-9d94-a4c3e9bc4199.png)
 
+![image](https://user-images.githubusercontent.com/21700482/134611185-0b210454-1dba-4283-b4a6-9d183e332f74.png)
 
 
 
