@@ -1,6 +1,6 @@
 
 # GIT Hub 주소
-### https://github.com/JinYongHwa/AndroidPrograming
+### https://github.com/JinYongHwa/AndroidProgramming
 
 ### E-mail 주소
 > yhjin@hhsoft.co.kr
