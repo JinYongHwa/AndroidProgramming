@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/workspace/AndroidProgramming/2021/recycleview/app/src/main/res/layout/activity_addperson.xml" value="0.75" />
         <entry key="..\:/workspace/AndroidProgramming/2021/recycleview/app/src/main/res/layout/activity_main.xml" value="0.42864583333333334" />
         <entry key="..\:/workspace/AndroidProgramming/2021/recycleview/app/src/main/res/layout/item_person.xml" value="0.42864583333333334" />
       </map>
