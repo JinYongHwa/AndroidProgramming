@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">config</string>
+    <string name="key_message_alarm">message_alarm</string>
 </resources>

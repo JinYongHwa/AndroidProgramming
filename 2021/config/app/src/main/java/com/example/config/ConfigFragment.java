@@ -23,13 +23,26 @@ public class ConfigFragment extends PreferenceFragment implements SharedPreferen
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.screen_config);
 
-        messageAlarm= (SwitchPreference) findPreference("message_alarm");
+        messageAlarm= (SwitchPreference) findPreference(getString(R.string.key_message_alarm));
         alarm= (SwitchPreference) findPreference("alarm");
         vibrate= (SwitchPreference) findPreference("vibrate");
         alarmSound= (ListPreference) findPreference("alarm_sound");
 
         SharedPreferences pref=PreferenceManager.getDefaultSharedPreferences(getActivity());
         pref.registerOnSharedPreferenceChangeListener(this);
+        boolean messageAlarmValue=pref.getBoolean("message_alarm",false);
+
+        if(messageAlarmValue){
+            alarm.setEnabled(true);
+            vibrate.setEnabled(true);
+            alarmSound.setEnabled(true);
+        }
+        else{
+            alarm.setEnabled(false);
+            vibrate.setEnabled(false);
+            alarmSound.setEnabled(false);
+        }
+
     }
 
     @Override
