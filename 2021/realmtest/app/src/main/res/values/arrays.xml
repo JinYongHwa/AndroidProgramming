@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cls_list">
+        <item>1반</item>
+        <item>2반</item>
+        <item>3반</item>
+    </string-array>
+</resources>
