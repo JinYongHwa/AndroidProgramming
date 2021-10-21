@@ -1,5 +1,6 @@
 package com.ioa.jyh.board;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Board {
@@ -38,6 +39,11 @@ public class Board {
 
     public Date getCreateDate() {
         return createDate;
+    }
+
+    public String getFormattedCreateDate(){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(createDate);
     }
 
     public void setCreateDate(Date createDate) {

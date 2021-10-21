@@ -19,6 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".WriteActivity"></activity>
+        <activity android:name=".ViewActivity"></activity>
+        <activity android:name=".WebViewActivity"></activity>
     </application>
 
 </manifest>
