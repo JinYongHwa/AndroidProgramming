@@ -1,8 +1,8 @@
-
 public class Main {
 	public static void main(String[] args) {
-		final int finalWidth=25;
-		final int finalHeight=25;
+		int size=40;
+		int finalWidth=size;
+		int finalHeight=size;
 		
 		int width=finalWidth;
 		int height=finalHeight;
@@ -25,7 +25,7 @@ public class Main {
 		while(true) {
 			
 			
-			System.out.println(String.format("[%d][%d]", w,h));
+			 
 			matrix[w][h]=a;
 			a++;
 			if(a==91) {
@@ -91,6 +91,7 @@ public class Main {
 		System.out.println();
 	}
 	public static void printMatrix(char[][] matrix) {
+		
 		System.out.println("--------------------------------------------");
 		for(int n=0;n<matrix.length;n++) {
 			for(int m=0;m<matrix.length;m++) {
@@ -101,3 +102,4 @@ public class Main {
 		
 	}
 }
+
