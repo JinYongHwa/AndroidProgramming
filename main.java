@@ -1,94 +1,103 @@
-//	public static void main(String[] args) {
-//		final int finalWidth=5;
-//		final int finalHeight=5;
-//		
-//		int width=finalWidth;
-//		int height=finalHeight;
-//		
-//		boolean horizontal=true; //true 왼쪽=>오른쪽
-//		boolean vertical=true;	//true 위->아래
-//		boolean vh=true; // 수평방향 true 수직방향 false
-//		
-//		int moveWidth=width;
-//		int moveHeight=height;
-//		
-//		char[][] matrix=new char[width][height];
-//		char a='A';
-//		
-//		int w=0;
-//		int h=0;
-//		
-//		boolean first=false;
-//		int i=0;
-//		while(true) {
-//			System.out.println(String.format("%d %d", w,h));
-//			matrix[w][h]=a;
-//			a++;
-//			i++;
-//			
-//			
-//			//방향이 수평일때
-//			if(vh) {
-//				//왼->오
-//				if(horizontal) {
-//					
-//					w++;
-//					if(w==width-1) {
-//						vh=!vh;
-//						horizontal=!horizontal;
-//						if(!first) {
-//							width--;
-//						}
-//						first=true;
-//					}
-//				}
-//				//오->왼
-//				else {
-//					w--;
-//					if(w==0) {
-//						vh=!vh;
-//						horizontal=!horizontal;
-//						width--;
-//					}
-//				}
-//			}
-//			
-//			//방향이 수직일때
-//			else {
-//				//위->아래
-//				if(vertical) {
-//					h++;
-//					if(h==height-1) {
-//						vh=!vh;
-//						vertical=!vertical;
-//						height--;
-//					}
-//					
-//				}
-//				//아래->위
-//				else {
-//					h--;
-//					if(h==height-1) {
-//						vh=!vh;
-//						vertical=!vertical;
-//						height--;
-//					}
-//				}
-//				
-//			}
-//			
-//			if(i>finalWidth*finalHeight) {
-//				break;
-//			}
-//			
-//		}
-//		
-//	
-//		for(int n=0;n<5;n++) {
-//			for(int m=0;m<5;m++) {
-//				System.out.print(matrix[n][m]);
-//			}
-//			System.out.println();
-//		}
-//		
-//	}
+
+public class Main {
+	public static void main(String[] args) {
+		final int finalWidth=25;
+		final int finalHeight=25;
+		
+		int width=finalWidth;
+		int height=finalHeight;
+		
+		boolean horizontal=true; //true 왼쪽=>오른쪽
+		boolean vertical=true;	//true 위->아래
+		boolean vh=true; // 수평방향 true 수직방향 false
+		
+		char[][] matrix=new char[width][height];
+		char a='A';
+		
+		int w=0;
+		int h=0;
+		int length=finalWidth;
+		int count=1;
+		
+		
+		int i=0;
+		int j=0;
+		while(true) {
+			
+			
+			System.out.println(String.format("[%d][%d]", w,h));
+			matrix[w][h]=a;
+			a++;
+			if(a==91) {
+				a='A';
+			}
+			i++;
+			j++;
+			
+			printMatrix(matrix);
+			if(j==length) {
+				j=0;
+				count++;
+				if(count==2) {
+					count=0;
+
+					length--;
+				}
+				
+				if(vh) {
+					horizontal=!horizontal;
+				}
+				else {
+					vertical=!vertical;
+				}
+				vh=!vh;
+			}
+			
+			if(vh) {
+				if(horizontal) {
+					w++;	
+				}
+				else {
+					w--;
+				}
+				
+				
+			}
+			else {
+				if(vertical) {
+					h++;	
+				}
+				else {
+					h--;
+				}
+				
+			}
+			
+			
+			if(i>finalWidth*finalHeight) {
+				break;
+			}
+			
+		}
+		
+		resultString(matrix);
+	}
+	public static void resultString(char[][] matrix) {
+		System.out.println("--------------------------------------------");
+		for(int i=1;i<matrix.length;i++) {
+			char a=matrix[i][i];
+			System.out.print(a);
+		}
+		System.out.println();
+	}
+	public static void printMatrix(char[][] matrix) {
+		System.out.println("--------------------------------------------");
+		for(int n=0;n<matrix.length;n++) {
+			for(int m=0;m<matrix.length;m++) {
+				System.out.print(matrix[m][n]);
+			}
+			System.out.println();
+		}
+		
+	}
+}
