@@ -5,6 +5,12 @@
       <map>
         <entry key="..\:/workspace/android/firstfirebase/app/src/main/res/layout/activity_join.xml" value="0.42864583333333334" />
         <entry key="..\:/workspace/android/firstfirebase/app/src/main/res/layout/activity_main.xml" value="0.42864583333333334" />
+        <entry key="..\:/workspace/android/firstfirebase/app/src/main/res/layout/activity_second.xml" value="0.42864583333333334" />
+        <entry key="..\:/workspace/android/firstfirebase/app/src/main/res/layout/fragment_add.xml" value="0.42916666666666664" />
+        <entry key="..\:/workspace/android/firstfirebase/app/src/main/res/layout/fragment_home.xml" value="0.42916666666666664" />
+        <entry key="..\:/workspace/android/firstfirebase/app/src/main/res/layout/fragment_profile.xml" value="0.42916666666666664" />
+        <entry key="..\:/workspace/android/firstfirebase/app/src/main/res/layout/fragment_search.xml" value="0.42916666666666664" />
+        <entry key="..\:/workspace/android/firstfirebase/app/src/main/res/layout/fragment_shop.xml" value="0.42916666666666664" />
       </map>
     </option>
   </component>
