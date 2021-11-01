@@ -84,7 +84,17 @@ public class AddFragment extends Fragment {
                             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                                 Log.d("AddFragment","success");
                                 if(task.isSuccessful()){
-
+                                    task.getResult()
+                                            .getMetadata()
+                                            .getReference()
+                                            .getDownloadUrl()
+                                            .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Uri> task) {
+                                                    Uri uri=task.getResult();
+                                                    Log.d("AddFragment",uri.toString());
+                                                }
+                                            });
 
                                 }
                             }
