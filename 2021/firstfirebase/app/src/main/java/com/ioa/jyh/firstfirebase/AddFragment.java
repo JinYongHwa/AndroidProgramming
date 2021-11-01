@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
@@ -33,6 +35,8 @@ public class AddFragment extends Fragment {
     ImageView imageIv;
     EditText messageEt;
     Button submitBtn;
+
+    ProgressBar loadingPb;
 
     final int REQ_IMAGE=9999;
 
@@ -55,6 +59,7 @@ public class AddFragment extends Fragment {
         imageIv=view.findViewById(R.id.image_iv);
         messageEt=view.findViewById(R.id.message_et);
         submitBtn=view.findViewById(R.id.submit_btn);
+        loadingPb=view.findViewById(R.id.loading_pb);
 
         imageIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +82,7 @@ public class AddFragment extends Fragment {
                     return;
                 }
                 Log.d("AddFragment","upload");
+                loadingPb.setVisibility(View.VISIBLE);
                 String fileName= UUID.randomUUID().toString();
                 storage.getReference().child("post").child(fileName).putFile(selectedImage)
                         .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -93,6 +99,8 @@ public class AddFragment extends Fragment {
                                                 public void onComplete(@NonNull Task<Uri> task) {
                                                     Uri uri=task.getResult();
                                                     Log.d("AddFragment",uri.toString());
+
+                                                    completeImage(uri.toString());
                                                 }
                                             });
 
@@ -103,6 +111,29 @@ public class AddFragment extends Fragment {
             }
         });
     }
+    public void completeImage(String url){
+        Post post=new Post();
+        post.setImageUrl(url);
+
+        FirebaseUser user=auth.getCurrentUser();
+        post.setUserId(user.getEmail());
+
+        String message=messageEt.getText().toString();
+        post.setMessage(message);
+
+        firestore.collection("post").document().set(post)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        loadingPb.setVisibility(View.GONE);
+                        selectedImage=null;
+                        imageIv.setImageDrawable(getActivity().getDrawable(R.drawable.outline_add_box_black_48));
+                        messageEt.setText("");
+                    }
+                });
+
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
