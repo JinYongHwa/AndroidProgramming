@@ -10,20 +10,28 @@ public class MainAdapter extends FragmentPagerAdapter {
     public MainAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
+
+    HomeFragment homeFragment=new HomeFragment();
+    SearchFragment searchFragment=new SearchFragment();
+    AddFragment addFragment=new AddFragment();
+    ShopFragment shopFragment=new ShopFragment();
+    ProfileFragment profileFragment=new ProfileFragment();
+
+
     @NonNull
     @Override
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new HomeFragment();
+                return homeFragment;
             case 1:
-                return new SearchFragment();
+                return searchFragment;
             case 2:
-                return new AddFragment();
+                return addFragment;
             case 3:
-                return new ShopFragment();
+                return shopFragment;
             default:
-                return new ProfileFragment();
+                return profileFragment;
         }
     }
 

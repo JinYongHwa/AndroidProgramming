@@ -41,4 +41,13 @@ public class SecondActivity extends AppCompatActivity {
         tabLayout.getTabAt(4).setIcon(R.drawable.outline_person_black_48);
 
     }
+
+    public void moveTab(int index){
+        viewpager.setCurrentItem(index);
+    }
+
+    public void refreshHomeTab(){
+        HomeFragment homeFragment=(HomeFragment) mainAdapter.getItem(0);
+        homeFragment.refresh();
+    }
 }

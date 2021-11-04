@@ -51,12 +51,14 @@ public class HomeFragment extends Fragment {
         refresh();
     }
     public void refresh(){
+
         firestore.collection("post")
                 .orderBy("uploadDate", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        mPostList.clear();
                         if(task.isSuccessful()){
                             for(DocumentChange dc :task.getResult().getDocumentChanges()){
                                 Post post=dc.getDocument().toObject(Post.class);

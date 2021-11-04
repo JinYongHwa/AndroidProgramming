@@ -129,6 +129,9 @@ public class AddFragment extends Fragment {
                         selectedImage=null;
                         imageIv.setImageDrawable(getActivity().getDrawable(R.drawable.outline_add_box_black_48));
                         messageEt.setText("");
+                        SecondActivity secondActivity=(SecondActivity) getActivity();
+                        secondActivity.moveTab(0);
+                        secondActivity.refreshHomeTab();
                     }
                 });
 
