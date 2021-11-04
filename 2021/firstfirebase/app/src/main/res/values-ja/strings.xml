@@ -5,6 +5,7 @@
     <string name="text_password">パスワード</string>
     <string name="btn_email_login">メールでログイン</string>
     <string name="btn_join">会員加入</string>
+    <string name="btn_logout">ログアウト</string>
     <string name="btn_google_login">Google IDでログイン</string>
     <string name="toast_email">メールアドレスを入力してください。</string>
     <string name="toast_password">パスワードを入力してください。</string>
@@ -12,4 +13,5 @@
     <string name="btn_submit">シェア</string>
     <string name="toast_select_image">イメージを選択してください</string>
     <string name="toast_write_message">フレーズを入力してください。</string>
+    <string name="btn_editprofile">プロプィール 編集</string>
 </resources>

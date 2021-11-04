@@ -27,6 +27,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar loadingPb;
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore firestore=FirebaseFirestore.getInstance();
 
     final int  REQ_GOOGLE_SIGNIN=1000;
 
@@ -148,13 +151,43 @@ public class MainActivity extends AppCompatActivity {
     }
     public void updateUI(FirebaseUser user){
         if(user!=null){     //로그인 되어있을때
-            Intent intent=new Intent(this,SecondActivity.class);
-            startActivity(intent);
-            finish();
+
+            loadingPb.setVisibility(View.VISIBLE);
+            firestore.collection("user")
+                    .document(user.getEmail())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.isSuccessful()){
+                                User checkUser=task.getResult().toObject(User.class);
+                                if(checkUser==null){
+                                    //첫로그인시
+                                    User newUser=new User();
+                                    newUser.setId(user.getEmail());
+                                    firestore.collection("user").document(user.getEmail()).set(newUser)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    moveSecondActivity();
+                                                }
+                                            });
+                                }
+                                else{
+                                    //이미 firestore에 user가 있는경우
+                                    moveSecondActivity();
+                                }
+
+                            }
+                        }
+                    });
         }
-        else{   //로그인안됬을때
-            
-        }
+
+    }
+    public void moveSecondActivity(){
+        Intent intent=new Intent(this,SecondActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

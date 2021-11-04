@@ -4,6 +4,7 @@
     <string name="text_password">패스워드</string>
     <string name="btn_email_login">이메일로 로그인</string>
     <string name="btn_join">회원가입</string>
+    <string name="btn_logout">로그아웃</string>
     <string name="btn_google_login">구글아이디로 로그인</string>
     <string name="toast_email">이메일을 입력해주세요</string>
     <string name="toast_password">비밀번호를 입력해주세요</string>
@@ -11,4 +12,5 @@
     <string name="btn_submit">공유</string>
     <string name="toast_select_image">이미지를 선택해주세요</string>
     <string name="toast_write_message">문구를 입력해주세요</string>
+    <string name="btn_editprofile">프로필편집</string>
 </resources>
