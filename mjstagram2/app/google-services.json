@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "609323374087",
+    "project_id": "mjstagram-second",
+    "storage_bucket": "mjstagram-second.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609323374087:android:f132ad2fe6cc6d90dc7ca2",
+        "android_client_info": {
+          "package_name": "com.mjc.mjstagram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609323374087-vubqsvao6e20601qqt167ksd0smikenu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0sc7mckG6_d3hbd3-zDHNdwtxHIrvX5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609323374087-vubqsvao6e20601qqt167ksd0smikenu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
