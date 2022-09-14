@@ -20,8 +20,4 @@ https://fonts.google.com/icons?selected=Material+Icons
 ![image](https://user-images.githubusercontent.com/21700482/134611185-0b210454-1dba-4283-b4a6-9d183e332f74.png)
 
 
-### 중간고사 소스코드
-https://github.com/JinYongHwa/app_midterm
-
-
 ### [Google Play Console](https://play.google.com/apps/publish/?hl=ko)
